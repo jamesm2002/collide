@@ -13,6 +13,8 @@
     <div id = "toolbar"></div>
     <div id = "editor"></div>
 
+    <button id="saveDelta">Save Delta</button>
+
     <script>
         // creates toolbar option array
         var toolbarOptions = [
@@ -35,6 +37,12 @@
             },
             theme: 'snow' 
         });
+
+    $('#saveDelta').click(function () {
+        var delta = quill.getContents();
+        console.log(delta)
+    });
+
     </script>
 
 </body>
