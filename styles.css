@@ -27,6 +27,9 @@ body {
     margin-top: 20px;
 }
 
+nav{
+    z-index: 3;
+}
 nav ul {
     width: 100%;
     text-align: center;
@@ -159,7 +162,7 @@ nav ul li svg {
 
 .input-box {}
 
-div.row > input {
+div.row>input {
     flex: 1;
     height: 20px;
     background: transparent;
@@ -244,7 +247,7 @@ input[type="submit"]:hover {
     overflow: hidden;
 }
 
-.top-post {
+.post1 {
     margin-top: 75px;
 }
 
@@ -329,6 +332,8 @@ input[type="submit"]:hover {
     justify-content: space-between;
     flex-direction: column;
     transition: width 0.5s;
+    z-index: 2; /* Set a higher z-index value for the side nav */
+    object-fit: cover;
 }
 
 .user {
@@ -359,6 +364,7 @@ input[type="submit"]:hover {
     height: 40px;
     border-radius: 50%;
     margin: auto;
+
 }
 
 ul {
@@ -384,6 +390,12 @@ ul li img {
 ul li p {
     white-space: nowrap;
     display: none;
+}
+
+.rightsec{
+    position: fixed;
+    top: 17px;
+    right: 14%;
 }
 
 .side-nav:hover {
@@ -452,12 +464,13 @@ ul li p {
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
+
 svg {
     width: 24px;
     height: 24px;
 }
 
-.createpost-container{
+.createpost-container {
     display: none;
     position: fixed;
     top: 0;
@@ -469,7 +482,7 @@ svg {
     align-items: center;
 }
 
-.createpost-content{
+.createpost-content {
     background: white;
     padding: 20px;
     border-radius: 5px;
@@ -479,3 +492,132 @@ svg {
 nav ul li .createpost {
     cursor: pointer;
 }
+
+.like-comment {
+    display: flex;
+    align-items: center;
+    text-align: right;
+    width: 100%;
+    margin: 0;
+}
+
+.like-comment .author {
+    margin-left: auto; /* This will push the .author element to the right edge */
+    margin-right: 10px; /* Adjust the margin as needed for spacing */
+}
+
+
+.group-picture img {
+    width: 100%;
+    object-fit: cover;
+    max-height: 400px;
+}
+
+.group-icon img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-top: -20px;
+    border: 2px solid black; /* Black border around the circular image */
+    margin-right: 10px; /* Adjust as needed for spacing between icon and group name */
+}
+
+.titlebar {
+    width: 100%;
+    background-color: white;
+    margin-top: -20px; /* Adjust the negative margin as needed for the desired overlap */
+    z-index: 1; /* Set a higher z-index to make sure the titlebar is displayed above the image */
+    padding-right:40% ;
+    display: flex;
+    align-items: center;
+    justify-content:center;
+    position: relative;
+}
+
+.group-info {
+    display: flex;
+    align-items: center;
+}
+.headers {
+}
+
+.titlebar p {
+    font-size: 50px; /* Adjust the font size as needed */
+    margin: 0; /* Remove default margin */
+    padding: 0px 5%;
+}
+.btop{
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+}
+.login {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #f2f2f2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+
+.login-box {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	width: 450px;
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 8px;
+    color: #555;
+}
+
+.logininput {
+    padding: 8px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.loginbutton {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 24px;
+    cursor: pointer;
+	margin : 0px 100px 0px 100px;
+}
+
+.light-mode {
+    --bg-color: #ffffff;
+    --text-color: #000000;
+}
+
+.dark-mode {
+    --bg-color: #333333;
+    --text-color: #ffffff;
+}
+
+.container {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    padding: 20px;
+    text-align: center;
+}
+
+
