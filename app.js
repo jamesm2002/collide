@@ -1,163 +1,242 @@
-// Check for leap year 
-const isLeapYear = (year) => { 
-    return (
-        (year % 4 === 0 && year % 100 !== 0 && year % 400 !== 0) || 
-        (year % 100 === 0 && year % 400 === 0)
-    );
-};
-
-const getFebDays = (year) => { 
-    return isLeapYear(year) ? 29 : 28; 
-};
-
-// Generate an array of months
-let calendar = document.querySelector('.calendar'); 
-const month_names = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
-]; 
-
-let month_picker = document.querySelector('#month-picker');
-const dayTextFormate = document.querySelector('.day-text-formate');
-const timeFormate = document.querySelector('.time-formate'); 
-const dateFormate = document.querySelector('.date-formate');
-// When selecting a month, hide time and date at the bottom. 
-month_picker.onclick = () => { 
-    month_list.classList.remove('hideonce'); 
-    month_list.classList.remove('hide'); 
-    month_list.classList.add('show'); 
-    dayTextFormate.classList.remove('showtime'); 
-    dayTextFormate.classList.add('hidetime'); 
-    timeFormate.classList.remove('showtime'); 
-    timeFormate.classList.add('hideTime'); 
-    dateFormate.classList.remove('showtime'); 
-    dateFormate.classList.add('hideTime'); 
-}; 
-// Generate year function which will take in the month and the year 
-const generateCalendar = (month, year) => { 
-    let calendar_days = document.querySelector('.calendar-days'); 
-    calendar_days.innerHTML = ''; 
-    let calendar_header_year = document.querySelector('#year'); 
-    let days_of_month = [ 
-        31,
-        getFebDays(year),
-        31,
-        30,
-        31,
-        30,
-        31,
-        31,
-        30,
-        31,
-        30,
-        31,
-    ]; 
-
-    let currentDate = new Date(); 
-
-    month_picker.innerHTML = month_names[month]; 
-
-    calendar_header_year.innerHTML = year; 
-
-    let first_day = new Date(year, month); 
-
-    for (let i = 0; i <= days_of_month[month] + first_day.getDay() - 1; i++) { 
-        let day = document.createElement('div'); 
-
-        if (i >= first_day.getDay()) { 
-            day.innerHTML = i - first_day.getDay() + 1; 
-
-            if (i - first_day.getDay() + 1 === currentDate.getDate() && 
-                year === currentDate.getFullYear() && 
-                month === currentDate.getMonth()
-            ) {
-                day.classList.add('current-date'); 
-            }
-        }
-        calendar_days.appendChild(day);
+const holidays = [
+    {
+      hdate: "01-01-2023",
+      holiday: "New Year Day",
+    },
+    {
+      hdate: "15-01-2023",
+      holiday: "Pongal",
+    },
+    {
+      hdate: "16-01-2023",
+      holiday: "Thiruvalluvar Day",
+    },
+    {
+      hdate: "17-01-2023",
+      holiday: "Uzhavar Thirunal",
+    },
+    {
+      hdate: "26-01-2023",
+      holiday: "Republic Day",
+    },
+    {
+      hdate: "05-02-2023",
+      holiday: "Thai Poosam",
+    },
+    {
+      hdate: "22-03-2023",
+      holiday: "Telugu New Year Day",
+    },
+    {
+      hdate: "01-04-2023",
+      holiday: "Annual closing of Accounts for Commercial Banks and Co-operative Banks",
+    },
+    {
+      hdate: "04-04-2023",
+      holiday: "Mahaveer Jayanthi",
+    },
+    {
+      hdate: "07-04-2023",
+      holiday: "Good Friday",
+    },
+    {
+      hdate: "14-04-2023",
+      holiday: "Tamil New Years Day and Dr.B.R.Ambedkars Birthday",
+    },
+    {
+      hdate: "22-04-2023",
+      holiday: "Ramzan (Idul Fitr)",
+    },
+    {
+      hdate: "01-05-2023",
+      holiday: "May Day",
+    },
+    {
+      hdate: "29-06-2023",
+      holiday: "Bakrid(Idul Azha)",
+    },
+    {
+      hdate: "29-07-2023",
+      holiday: "Muharram",
+    },
+    {
+      hdate: "15-08-2023",
+      holiday: "Independence Day",
+    },
+    {
+      hdate: "06-09-2023",
+      holiday: "Krishna Jayanthi",
+    },
+    {
+      hdate: "17-09-2023",
+      holiday: "Vinayakar Chathurthi",
+    },
+    {
+      hdate: "28-09-2023",
+      holiday: "Milad-un-Nabi",
+    },
+    {
+      hdate: "02-10-2023",
+      holiday: "Gandhi Jayanthi",
+    },
+    {
+      hdate: "23-10-2023",
+      holiday: "Ayutha Pooja",
+    },
+    {
+      hdate: "24-10-2023",
+      holiday: "Vijaya Dasami",
+    },
+    {
+      hdate: "12-11-2023",
+      holiday: "Deepavali",
+    },
+    {
+      hdate: "25-12-2023",
+      holiday: "Christmas",
+    },
+  ];
+  const calendar = document.querySelector("#calendar");
+  const monthBanner = document.querySelector("#month");
+  let navigation = 0;
+  let clicked = null;
+  let events = localStorage.getItem("events") ? JSON.parse(localStorage.getItem("events")) : [];
+  const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  
+  function loadCalendar() {
+    const dt = new Date();
+  
+    if (navigation != 0) {
+      dt.setMonth(new Date().getMonth() + navigation);
     }
-};
-
-// When a user selects to change month
-// Display all months and hide date and time at the bottom
-// Of the calendar
-let month_list = calendar.querySelector('.month-list'); 
-month_names.forEach((e, index) => { 
-    let month = document.createElement('div'); 
-    month.innerHTML = `<div>${e}</div>`;
-
-    month_list.append(month);
-    month.onclick = () => { 
-        currentMonth.value = index; 
-        generateCalendar(currentMonth.value, currentYear.value);
-        month_list.classList.replace('show', 'hide'); 
-        dayTextFormate.classList.remove('hideTime'); 
-        dayTextFormate.classList.add('showtime'); 
-        timeFormate.classList.remove('hideTime'); 
-        timeFormate.classList.add('showtime');
-        dateFormate.classList.remove('hideTime'); 
-        dateFormate.classList.add('showtime');  
-    };
-});
-
-// Allow the user to change the year to previous years or future years. 
-(function() { 
-    month_list.classList.add('hideonce'); 
-})();
-document.querySelector('#pre-year').onclick = () => { 
-    --currentYear.value; 
-    generateCalendar(currentMonth.value, currentYear.value); 
-};
-document.querySelector('#next-year').onclick = () => { 
-    ++currentYear.value; 
-    generateCalendar(currentMonth.value, currentYear.value);
-};
-
-let currentDate = new Date(); 
-let currentMonth = { value: currentDate.getMonth() }; 
-let currentYear = { value: currentDate.getFullYear()};
-generateCalendar(currentMonth.value, currentYear.value); 
-
-const todayShowTime = document.querySelector('.time-formate'); 
-const todayShowDate = document.querySelector('.date-formate'); 
-// Create the current date
-const currshowDate = new Date(); 
-const showCurrentDateOption = { 
-    year: 'numeric', 
-    month: 'long', 
-    day: 'numeric', 
-    weekday: 'long',
-};
-// Display and format date and time 
-const currentDateFormate = new Intl.DateTimeFormat(
-    'en-US', 
-    showCurrentDateOption
-    ).format(currshowDate);
-    todayShowDate.textContent = currentDateFormate;
-    setInterval(() => { 
-        const timer = new Date(); 
-        const option = {
-            hour: 'numeric', 
-            minute: 'numeric', 
-            second: 'numeric',
-        };
-    const formateTimer = new Intl.DateTimeFormat('en-us', option).format(timer);
-    let time = `${`${timer.getHours()}`.padStart(
-        2,
-        '0'
-      )}:${`${timer.getMinutes()}`.padStart(
-        2,
-        '0'
-      )}: ${`${timer.getSeconds()}`.padStart(2, '0')}`;
-    todayShowTime.textContent = formateTimer;
-      }, 1000); 
+    const day = dt.getDate();
+    const month = dt.getMonth();
+    const year = dt.getFullYear();
+    monthBanner.innerText = `${dt.toLocaleDateString("en-us", {
+      month: "long",
+    })} ${year}`;
+    calendar.innerHTML = "";
+    const dayInMonth = new Date(year, month + 1, 0).getDate();
+    const firstDayofMonth = new Date(year, month, 1);
+    const dateText = firstDayofMonth.toLocaleDateString("en-us", {
+      weekday: "long",
+      year: "numeric",
+      month: "numeric",
+      day: "numeric",
+    });
+  
+    const dayString = dateText.split(", ")[0];
+    const emptyDays = weekdays.indexOf(dayString);
+  
+    for (let i = 1; i <= dayInMonth + emptyDays; i++) {
+      const dayBox = document.createElement("div");
+      dayBox.classList.add("day");
+      const monthVal = month + 1 < 10 ? "0" + (month + 1) : month + 1;
+      const dateVal = i - emptyDays < 10 ? "0" + (i - emptyDays) : i - emptyDays;
+      const dateText = `${dateVal}-${monthVal}-${year}`;
+      if (i > emptyDays) {
+        dayBox.innerText = i - emptyDays;
+        //Event Day
+        const eventOfTheDay = events.find((e) => e.date == dateText);
+        //Holiday
+        const holidayOfTheDay = holidays.find((e) => e.hdate == dateText);
+  
+        if (i - emptyDays === day && navigation == 0) {
+          dayBox.id = "currentDay";
+        }
+  
+        if (eventOfTheDay) {
+          const eventDiv = document.createElement("div");
+          eventDiv.classList.add("event");
+          eventDiv.innerText = eventOfTheDay.title;
+          dayBox.appendChild(eventDiv);
+        }
+        if (holidayOfTheDay) {
+          const eventDiv = document.createElement("div");
+          eventDiv.classList.add("event");
+          eventDiv.classList.add("holiday");
+          eventDiv.innerText = holidayOfTheDay.holiday;
+          dayBox.appendChild(eventDiv);
+        }
+  
+        dayBox.addEventListener("click", () => {
+          showModal(dateText);
+        });
+      } else {
+        dayBox.classList.add("plain");
+      }
+      calendar.append(dayBox);
+    }
+  }
+  function buttons() {
+    const btnBack = document.querySelector("#btnBack");
+    const btnNext = document.querySelector("#btnNext");
+    const btnDelete = document.querySelector("#btnDelete");
+    const btnSave = document.querySelector("#btnSave");
+    const closeButtons = document.querySelectorAll(".btnClose");
+    const txtTitle = document.querySelector("#txtTitle");
+  
+    btnBack.addEventListener("click", () => {
+      navigation--;
+      loadCalendar();
+    });
+    btnNext.addEventListener("click", () => {
+      navigation++;
+      loadCalendar();
+    });
+    modal.addEventListener("click", closeModal);
+    closeButtons.forEach((btn) => {
+      btn.addEventListener("click", closeModal);
+    });
+    btnDelete.addEventListener("click", function () {
+      events = events.filter((e) => e.date !== clicked);
+      localStorage.setItem("events", JSON.stringify(events));
+      closeModal();
+    });
+    // Code for saving an Event. 
+    // Add Database code here 
+    btnSave.addEventListener("click", function () {
+      if (txtTitle.value) {
+        txtTitle.classList.remove("error");
+        events.push({
+          date: clicked,
+          title: txtTitle.value.trim(),
+        });
+        txtTitle.value = "";
+        localStorage.setItem("events", JSON.stringify(events));
+        closeModal();
+      } else {
+        txtTitle.classList.add("error");
+      }
+    });
+  }
+  
+  const modal = document.querySelector("#modal");
+  const viewEventForm = document.querySelector("#viewEvent");
+  const addEventForm = document.querySelector("#addEvent");
+  
+  function showModal(dateText) {
+    clicked = dateText;
+    const eventOfTheDay = events.find((e) => e.date == dateText);
+    if (eventOfTheDay) {
+      //Event already Preset
+      document.querySelector("#eventText").innerText = eventOfTheDay.title;
+      viewEventForm.style.display = "block";
+    } else {
+      //Add new Event
+      addEventForm.style.display = "block";
+    }
+    modal.style.display = "block";
+  }
+  
+  //Close Modal
+  function closeModal() {
+    viewEventForm.style.display = "none";
+    addEventForm.style.display = "none";
+    modal.style.display = "none";
+    clicked = null;
+    loadCalendar();
+  }
+  
+  buttons();
+  loadCalendar();  
