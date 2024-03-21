@@ -5,9 +5,7 @@
     <title>quill tests</title>
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
     <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-    <!-- frebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <script src="quill.js"></script>
 
 </head>
 
@@ -18,26 +16,13 @@
     <div id = "editor"></div>
 
     <!-- save button -->
-    <button id="save-button">Save</button>
+    <button id="create-button">create</button>
 
-    <script>
-    
-    // access the firebase database
-    const firebaseConfig = {
-     apiKey: "AIzaSyAJ1aWDN75vBjI_xBP_OmwQIWPLp6e-usE",
-     authDomain: "collide-c5460.firebaseapp.com",
-     projectId: "collide-c5460",
-     storageBucket: "collide-c5460.appspot.com",
-     messagingSenderId: "855163288054",
-     appId: "1:855163288054:web:8bd9fb281dc771ce5cefd7"
-    };
+    <button id = 'load-button'>Load</button>
 
-    // intialise the database
-    firebase.initializeApp(firebaseConfig);
+    <button id = 'save-button'>save</button>
 
-    // gets a reference to the realtime database
-    const database = firebase.database();
-
+<script>
     // creates toolbar option array
     var toolbarOptions = [
         ['bold', 'italic', 'underline', 'strike'], // adds text options
@@ -60,28 +45,7 @@
         theme: 'snow' 
     });
 
-    // get a reference to the document
-    const documentRef = database.ref('document');
-
-
-    // loads in the data from document upon loading
-    documentRef.on('value', (snapshot) => {
-        const documentContent = snapshot.val();
-        quill.clipboard.dangerouslyPasteHTML(documentContent || '');
-    });
-
-  // function to save the content
-  const saveDocument = () => {
-    console.log("Save clicked")
-    const updatedContent = quill.root.innerHTML;
-    console.log("Updating document content")
-    documentRef.set(updatedContent);
-    console.log("Updated successfully")
-  };
-
-    // button used to save the content
-    document.getElementById('save-button').addEventListener('click', saveDocument);
-    </script>
+</script>
 
 </body>
 

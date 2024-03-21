@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="styles.css">
     <title>Collide chatpage</title>
     <script src="javascript.js"></script>
+    <script src="scripts/textpost.js"></script>
 </head>
 <div class="hero">
     <nav>
@@ -24,15 +25,19 @@
             <createpost>
                 <div class="createpost-container" id="popupContainer">
                     <div class="popup-content">
-                        <!-- Your content goes here -->
-                        <input type="file" id="photoInput" accept="image/*">
-                        <button onclick="previewPhoto()">preview post</button>
-                        <img id="previewImage" alt="Preview Image" style="display: none; max-width: 300px; margin-top: 10px;">
-                        <button id="uploadBtn" onclick="post"> post</button>
+                        
 
-                        <button onclick="closePopup()">Close</button>
+                        <form id="threadForm">
+                        <label for="threadBody">Thread Body:</label><br>
+                        <textarea id="threadBody" name="threadBody" rows="4" cols="50"></textarea><br>
+                        <button type="button" onclick="add_text()">Submit</button> 
+                        <button type="button" onclick="closePopup()">Close</button>
+
+
+
                     </div>
                 </div>
+                <div id="successMessage" style="display: none;">Submission successful!</div>
                 <li><svg width="800px" height="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
                         onclick="openPopup()">
                         <path d="M15 12L12 12M12 12L9 12M12 12L12 9M12 12L12 15" stroke="#1C274C" stroke-width="1.5"
@@ -236,65 +241,9 @@
         </div>
     </div>
 </div>
-    <div id="3">
-        <div class="post-container">
-            <div class="user-info">
-                <img src="images/profilep3.jpg" alt="User Profile Picture">
-                <span class="username">Group 2</span>
-            </div>
-            <div class="poll-container">
-                <h1>Vote in the Poll</h1>
-                <form action="#" method="post">
-                    <label>
-                        <input type="radio" name="vote" value="option1"> Option 1
-                    </label>
-                    <label>
-                        <input type="radio" name="vote" value="option2"> Option 2
-                    </label>
-                    <label>
-                        <input type="radio" name="vote" value="option3"> Option 3
-                    </label>
-                    <!-- Add more options as needed -->
-                    <input type="submit" value="Submit Vote">
-                </form>
-            </div>
-            <div class="post-details">
-                <div class="like-comment">
-                    <button><svg id="svgButton" width="800px" height="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+   <!-- Container for thread posts -->
+   <div id="threadPostsContainer"></div>
 
-                        <g id="SVGRepo_bgCarrier" stroke-width="0"/>
-                        
-                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
-                        
-                        <g id="SVGRepo_iconCarrier"> <path d="M15.7 4C18.87 4 21 6.98 21 9.76C21 15.39 12.16 20 12 20C11.84 20 3 15.39 3 9.76C3 6.98 5.13 4 8.3 4C10.12 4 11.31 4.91 12 5.71C12.69 4.91 13.88 4 15.7 4Z" stroke="#000000" stroke-width="1.44" stroke-linecap="round" stroke-linejoin="round"/> </g>
-                        
-                        </svg></button>
-                    <button class="comment-btn"><svg width="800px" height="800px" viewBox="0 0 24 24" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M17 3.33782C15.5291 2.48697 13.8214 2 12 2C6.47715 2 2 6.47715 2 12C2 13.5997 2.37562 15.1116 3.04346 16.4525C3.22094 16.8088 3.28001 17.2161 3.17712 17.6006L2.58151 19.8267C2.32295 20.793 3.20701 21.677 4.17335 21.4185L6.39939 20.8229C6.78393 20.72 7.19121 20.7791 7.54753 20.9565C8.88837 21.6244 10.4003 22 12 22C17.5228 22 22 17.5228 22 12C22 10.1786 21.513 8.47087 20.6622 7"
-                                stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" />
-                            <path d="M8 12H8.009M11.991 12H12M15.991 12H16" stroke="#1C274C" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round" />
-                        </svg></button>
-                        <p class="author">Author - Kacper </p></class>
-                </div>
-                <div class="comments">
-                    <!-- Comment section goes here -->
-                    <div class="comment">
-                        <span class="comment-username">commenter1:</span>
-                        <span class="comment-text">Does this affect our grade?</span>
-                    </div>
-                    <div class="comment">
-                        <span class="comment-username">commenter2:</span>
-                        <span class="comment-text">Yipee!</span>
-                    </div>
-                    <!-- Add more comments as needed -->
-                </div>
-                <textarea class="add-comment" placeholder="Add a comment..."></textarea>
-            </div>
-        </div>
-    </div>
 
     <div class="4" id="4">
         <div class="post-container">
