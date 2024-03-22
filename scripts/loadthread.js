@@ -16,7 +16,7 @@ async function view_threads() {
     return result;
   }
 
-// returns the body of each text thread
+// returns an array of all values for a thread
 async function view_thread(threadId) {
     console.log("Got here");
   
@@ -24,46 +24,57 @@ async function view_thread(threadId) {
     formData.append('threadId', threadId);
   
     const response = await fetch("https://softboxcollide.glitch.me/get_thread", {
-      method: "POST",
-      mode: "cors",
-      body: formData
+        method: "POST",
+        mode: "cors",
+        body: formData
     });
-  
+
     const result = await response.json();
+
     try {
-      type = result[0].threadtype;
-      return result[0].body;
+        const thread = {
+            threadId: result[0].threadid,
+            body: result[0].body,
+            threadtype: result[0].threadtype,
+            title: result[0].title
+        };
+        return thread;
     } catch {
-      type = result.threadPart[0].threadtype;
-      return result.threadPart[0].body;
-     
+        const thread = {
+            threadId: result.threadPart[0].threadid,
+            body: result.threadPart[0].body,
+            threadtype: result.threadPart[0].threadtype,
+            title: result.threadPart[0].title
+        };
+        return thread;
     }
+}
 
-  }
 
+// prints all threads
   async function print_threads() {
     const threadsResponse = await view_threads();
-    console.log('threadsResponse')
+    console.log(threadsResponse)
     const threadPostsContainer = document.getElementById('threadPostsContainer');
 
     if (threadsResponse && threadsResponse.length > 0) {
         console.log("Printing posts of all threads in server 1:");
 
         for (const thread of threadsResponse) {
+           
             const threadId = thread.threadid;
-            const threadTitle = thread.title;
-            const threadBody = await view_thread(threadId);
+            
+            const thread_value = await view_thread(threadId);
+            console.log(thread_value.body);
+            
+            const threadBody = thread_value.body;
 
             const postDiv = document.createElement('div');
             postDiv.classList.add('post-container');
 
-            const titleHeader = document.createElement('h1');
-            titleHeader.textContent = threadTitle;
-
             const bodyParagraph = document.createElement('p');
             bodyParagraph.textContent = threadBody;
 
-            postDiv.appendChild(titleHeader);
             postDiv.appendChild(bodyParagraph);
             threadPostsContainer.appendChild(postDiv);
         }

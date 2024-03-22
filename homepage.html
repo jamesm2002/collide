@@ -27,6 +27,8 @@
             
             <!--options to create new posts-->
             <createpost>
+                <script src = 'scripts/popupmenu.js'></script>
+                <script src = 'quill/newquill.js'></script>
                 <div class="createpost-container" id="popupContainer">
                     <div class="popup-content">
                         <label for="threadType">Select Thread Type:</label><br>
@@ -35,19 +37,20 @@
                             <option value="document">Document Thread</option>
                         </select><br><br>
             
-                        <form id="threadForm">
-                            <label for="threadBody">Thread Body:</label><br>
+                        <div id="threadFormText" style="display: block;">
+                            <label for="threadBody">Thread Body for Text:</label><br>
                             <textarea id="threadBody" name="threadBody" rows="4" cols="50"></textarea><br>
-                            <button type="button" onclick="add_text()">Submit</button> 
-                            <button type="button" onclick="closePopup()">Close</button>
-                        </form>
-
-                        <form id="documentForm">
-                            <label for="threadBody">Thread Body:</label><br>
-                            <textarea id="threadBody" name="threadBody" rows="4" cols="50"></textarea><br>
-                            <button type="button" onclick="add_text()">Submit</button> 
-                            <button type="button" onclick="closePopup()">Close</button>
-                        </form>
+                        </div>
+                        
+                        <div id="threadFormDocument" style="display: none;">
+                            <label for="threadBody">Thread Body for Document:</label><br>
+                            <textarea id="threadBodyDocument" name="threadBodyDocument" rows="4" cols="50"></textarea><br>
+                        </div>
+                        
+                        <button type="button" onclick="add_text()">Submit</button> 
+                        <button type="button" onclick="closePopup()">Close</button>
+                        <button type="button" onclick="create_document()">Document</button>
+                        <a id="quillLink" href="quill/quill.html">Create Document</a>
                     </div>
                 </div>
             </createpost>
