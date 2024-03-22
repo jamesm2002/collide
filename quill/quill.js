@@ -26,11 +26,11 @@ async function create_document() {
 }
 
 // loads a document into the quill editor
-async function load_thread() {
+async function load_thread(threadId) {
     console.log("Loading thread...");
 
     const formData = new FormData();
-    formData.append('threadId', 18);
+    formData.append('threadId', threadId);
 
     const response = await fetch("https://softboxcollide.glitch.me/get_thread", {
         method: "POST",
@@ -41,10 +41,13 @@ async function load_thread() {
     const result = await response.json();
     const doclink = result.docPart[0].doclink;
 
-    // Set the content of the Quill editor with the fetched thread content
-    quill.root.innerHTML = doclink;
+    // Redirect to quill.html
+    window.location.href = "quill/quill.html";
 
-    console.log("Thread loaded successfully.");
+    const loadDataEvent = new CustomEvent('load_data', { detail: { doclink: doclink } });
+    document.dispatchEvent(loadDataEvent);
+
+    return(doclink)
 }
 
 // saves an exisiting document
@@ -72,3 +75,5 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('load-button').addEventListener('click', load_thread);
     document.getElementById('save-button').addEventListener('click', save_document);
 });
+
+

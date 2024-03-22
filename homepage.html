@@ -10,6 +10,8 @@
     <title>Collide chatpage</title>
     <script src="javascript.js"></script>
     <script src="scripts/textpost.js"></script>
+    <script src="scripts/loadthread.js"></script>
+    
 </head>
 <div class="hero">
     <nav>
@@ -22,22 +24,35 @@
                         stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" />
                     <path d="M15 18H9" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" />
                 </svg></li>
+            
+            <!--options to create new posts-->
             <createpost>
                 <div class="createpost-container" id="popupContainer">
                     <div class="popup-content">
-                        
-
+                        <label for="threadType">Select Thread Type:</label><br>
+                        <select id="threadType" name="threadType">
+                            <option value="text">Text Thread</option>
+                            <option value="document">Document Thread</option>
+                        </select><br><br>
+            
                         <form id="threadForm">
-                        <label for="threadBody">Thread Body:</label><br>
-                        <textarea id="threadBody" name="threadBody" rows="4" cols="50"></textarea><br>
-                        <button type="button" onclick="add_text()">Submit</button> 
-                        <button type="button" onclick="closePopup()">Close</button>
+                            <label for="threadBody">Thread Body:</label><br>
+                            <textarea id="threadBody" name="threadBody" rows="4" cols="50"></textarea><br>
+                            <button type="button" onclick="add_text()">Submit</button> 
+                            <button type="button" onclick="closePopup()">Close</button>
+                        </form>
 
-
-
+                        <form id="documentForm">
+                            <label for="threadBody">Thread Body:</label><br>
+                            <textarea id="threadBody" name="threadBody" rows="4" cols="50"></textarea><br>
+                            <button type="button" onclick="add_text()">Submit</button> 
+                            <button type="button" onclick="closePopup()">Close</button>
+                        </form>
                     </div>
                 </div>
+            </createpost>
                 <div id="successMessage" style="display: none;">Submission successful!</div>
+                
                 <li><svg width="800px" height="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
                         onclick="openPopup()">
                         <path d="M15 12L12 12M12 12L9 12M12 12L12 9M12 12L12 15" stroke="#1C274C" stroke-width="1.5"
@@ -242,7 +257,7 @@
     </div>
 </div>
    <!-- Container for thread posts -->
-   <div id="threadPostsContainer"></div>
+    <div id="threadPostsContainer"></div>
 
 
     <div class="4" id="4">
@@ -291,6 +306,7 @@
     </div>
 
     <button id="backToTopBtn" onclick="scrollToTop()">Back to Top</button>
+    
 
 
 
