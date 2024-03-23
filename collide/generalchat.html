@@ -1,0 +1,187 @@
+<!-- index.html -->
+
+<!DOCTYPE html>
+<html lang="en" class="dimmed">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Collide chatpage</title> 
+</head>
+<div class="hero">
+    <nav>
+        <img onclick="document.location='homepage.html'" src="images/collideText2.png" class="logo">
+        <ul>
+            <li><svg onclick="document.location='homepage.html'" width="800px" height="800px" viewBox="0 0 24 24"
+                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M22 12.2039V13.725C22 17.6258 22 19.5763 20.8284 20.7881C19.6569 22 17.7712 22 14 22H10C6.22876 22 4.34315 22 3.17157 20.7881C2 19.5763 2 17.6258 2 13.725V12.2039C2 9.91549 2 8.77128 2.5192 7.82274C3.0384 6.87421 3.98695 6.28551 5.88403 5.10813L7.88403 3.86687C9.88939 2.62229 10.8921 2 12 2C13.1079 2 14.1106 2.62229 16.116 3.86687L18.116 5.10812C20.0131 6.28551 20.9616 6.87421 21.4808 7.82274"
+                        stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" />
+                    <path d="M15 18H9" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" />
+                </svg></li>
+            <createpost>
+                <div class="createpost-container" id="popupContainer">
+                    <div class="popup-content">
+                        <!-- Your content goes here -->
+                        <form id="threadForm">
+                            <label for="threadBody">Thread Body:</label><br>
+                            <textarea id="threadBody" name="threadBody" rows="4" cols="50"></textarea><br>
+                            <button type="button" onclick="add_text()">Submit</button>
+                            <button type="button" onclick="closePopup()">Close</button>
+
+                    </div>
+                </div>
+                <li><svg width="800px" height="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                        onclick="openPopup()">
+                        <path d="M15 12L12 12M12 12L9 12M12 12L12 9M12 12L12 15" stroke="#1C274C" stroke-width="1.5"
+                            stroke-linecap="round" />
+                        <path
+                            d="M7 3.33782C8.47087 2.48697 10.1786 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 10.1786 2.48697 8.47087 3.33782 7"
+                            stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" />
+                    </svg></li>
+            </createpost>
+
+            <leftsec>
+                <li><svg width="800px" height="800px" viewBox="0 0 24 24" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M9.10745 2.67414C9.98414 2.24187 10.9649 2 12 2C15.7274 2 18.7491 5.13623 18.7491 9.00497V9.70957C18.7491 10.5552 18.9903 11.3818 19.4422 12.0854L20.5496 13.8095C21.5612 15.3843 20.789 17.5249 19.0296 18.0229C14.4273 19.3257 9.57274 19.3257 4.97036 18.0229C3.21105 17.5249 2.43882 15.3843 3.45036 13.8095L4.5578 12.0854C5.00972 11.3818 5.25087 10.5552 5.25087 9.70957V9.00497C5.25087 7.93058 5.48391 6.91269 5.90039 6.00277"
+                            stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" />
+                        <path
+                            d="M7.5 19C8.15503 20.7478 9.92246 22 12 22C12.2445 22 12.4847 21.9827 12.7192 21.9492M16.5 19C16.2329 19.7126 15.781 20.3428 15.1985 20.8393"
+                            stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" />
+                    </svg></li>
+            </leftsec>
+        </ul>
+        <img src="images/profilep.jpg" class="user-pic" onclick="toggleMenu()">
+
+        <div class="sub-menu-wrap" id="subMenu">
+            <div class="sub-menu">
+                <div class="user-info">
+                    <img src="images/profilep.jpg">
+                    <h3>Aubrey Jackson</h3>
+                </div>
+                <hr>
+
+                <a href="#" class="sub-menu-link">
+                    <img onclick="changeStatus()" src="images/profile.png">
+                    <p onclick="changeStatus()">Status</p>
+
+                    <span onclick="changeStatus()" id="statusSpan">Active</span>
+                </a>
+                <a href="#" class="sub-menu-link" onclick="document.location='settings.html'">
+                    <img src="images/setting.png">
+                    <p>Settings & Privacy</p>
+                    <span>></span>
+                </a>
+                <a href="login.htm" class="sub-menu-link">
+                    <img src="images/logout.png">
+                    <p>Logout</p>
+                    <span>></span>
+                </a>
+
+            </div>
+        </div>
+
+    </nav>
+</div>
+
+<body>
+    <div class="header">
+        <div class="side-nav">
+            <div class="user">
+                <div>
+                    <h2>Groups</h2>
+                </div>
+            </div>
+            <ul>
+                <li onclick="document.location='group1.html'"><img src="images/group1.jpg">
+                    <p>Group 1</p>
+                </li>
+                <li onclick="document.location='group2.html'"><img src="images/group2.jpg">
+                    <p>Group 2</p>
+                </li>
+                <!---   <li onclick="document.location='group3.html'"><img src="images/group3.jpg">
+                    <p>Group 3</p>
+                </li> -->
+            </ul>
+
+            <ul>
+                <li onclick="document.location='creategroup.html'"><img src="images/plus.png">
+                    <p>Add</p>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+    <div class="headers">
+        <div class="group-picture">
+            <img src="images/group1.jpg">
+        </div>
+        <div class="titlebar">
+            <div class="group-icon">
+                <img src="images/group1.jpg">
+            </div>
+                <p>Group 1</p>
+                <div class="group-navbar">
+                    <h4 onclick="document.location='group1.html'">home</h4>
+                    <h4 onclick="document.location='generalchat.html'">Chat</h4>
+                    <h4 onclick="document.location='addpeoplethread.html'">Settings</h4>
+                    <h4 onclick="document.location='homepage.html'">Leave group</h4>
+                </div>
+        </div>
+    </div>
+<div class="chat-container">
+<body>
+    <div class="Chat">
+        <div class="center__display">
+            <div class="leftsidecontent">
+                <div class="centerman">
+                <div class="comments__container center__display">
+                    <!-- <div class="comment__card">
+                <div class="pic center__display">
+                </div>
+                <div class="comment__info">
+                    <small class="nickname">
+                        UserNameHere
+                    </small>
+                    <p class="comments">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora, in magnam! Libero?
+                    </p>
+                    <div class="comment__bottom">
+                        <div class="heart__icon--comment">
+                            <i class="far fa-heart"></i>
+                        </div>
+                        <button>
+                            Reply
+                        </button>
+                    </div>
+                </div>
+            </div> -->
+                </div>
+                </div>
+                <div class="top">
+                    <div class="bcontain">
+                        <form>
+                            <div class="heart__icon center__display">
+                                <i class="far fa-heart"></i>
+                            </div>
+                            <div class="form__info center__display">
+                                <input type="text" name="comment" id="comment" placeholder="Speak">
+                                <button onclick=addGeneralComment() type="submit" class="submit__btn">
+                                    Submit
+                                </button>
+                            </div>
+                        </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+    <script src="comment.js"></script>
+    <script src="scripts/loadComments.js"></script>
+</body>
