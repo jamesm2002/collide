@@ -36,22 +36,29 @@ async function view_thread(threadId) {
             threadId: result[0].threadid,
             body: result[0].body,
             threadtype: result[0].threadtype,
-            title: result[0].title
+            title: result[0].title,
+            doclink: 'n/a'
         };
         return thread;
     } catch {
-        const thread = {
-            threadId: result.threadPart[0].threadid,
-            body: result.threadPart[0].body,
-            threadtype: result.threadPart[0].threadtype,
-            title: result.threadPart[0].title
-        };
-        return thread;
+        try {
+            const thread = {
+                threadId: result.threadPart[0].threadid,
+                body: result.threadPart[0].body,
+                threadtype: result.threadPart[0].threadtype,
+                title: result.threadPart[0].title,
+                doclink: result.docPart[0].doclink
+            };
+            return thread;
+        } catch (innerError) {
+            console.error("Error processing thread:", innerError);
+            return { threadId: null, body: "Error retrieving thread", threadtype: null, title: "Error", doclink: 'n/a' };
+        }
     }
 }
 
 
-// prints all threads
+// prints all threads 
   async function print_threads() {
     const threadsResponse = await view_threads();
     console.log(threadsResponse)
@@ -65,7 +72,7 @@ async function view_thread(threadId) {
             const threadId = thread.threadid;
             
             const thread_value = await view_thread(threadId);
-            console.log(thread_value.body);
+            console.log(thread_value);
             
             const threadBody = thread_value.body;
 
@@ -73,7 +80,16 @@ async function view_thread(threadId) {
             postDiv.classList.add('post-container');
 
             const bodyParagraph = document.createElement('p');
-            bodyParagraph.textContent = threadBody;
+            
+            if (thread_value.doclink && thread_value.doclink !== 'n/a') {
+                // If doclink exists and is not 'n/a', assume it's a document file
+                const link = document.createElement('a');
+                link.textContent = "View Document";
+                link.href = `quill/quill.html?threadId=${threadId}`;
+                bodyParagraph.appendChild(link);
+            } else {
+                bodyParagraph.textContent = threadBody;
+            }
 
             postDiv.appendChild(bodyParagraph);
             threadPostsContainer.appendChild(postDiv);
