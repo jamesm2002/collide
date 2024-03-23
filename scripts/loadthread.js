@@ -81,8 +81,9 @@ async function view_thread(threadId) {
 
             const bodyParagraph = document.createElement('p');
             
+            // this creates a link to a document
+            // if we have n/a then we can assume it's not a document
             if (thread_value.doclink && thread_value.doclink !== 'n/a') {
-                // If doclink exists and is not 'n/a', assume it's a document file
                 const link = document.createElement('a');
                 link.textContent = threadBody;
                 link.href = `quill/quill.html?threadId=${threadId}`;

@@ -15,11 +15,12 @@
     <div id = "editor"></div>
 
     <!-- save button -->
-
-    <button type="button" onclick="save_document()">Save</button> 
+    <button id="save_button">Save</button>
+   
 
 <script>
 
+    // extracts id from the url
     function getParameterByName(name, url) {
         if (!url) url = window.location.href;
         name = name.replace(/[\[\]]/g, '\\$&');
@@ -66,40 +67,45 @@
             method: "POST",
             mode: "cors",
             body: formData
-        });
+    });
 
     const result = await response.json();
     const doclink = result.docPart[0].doclink;
-    console.log(result.docPart[0].doclink);
 
     quill.root.innerHTML = doclink;
 
-}
+    }
 
-document.addEventListener('DOMContentLoaded', function() {
-    var threadId = getParameterByName('threadId');
-    load_thread(threadId)
-    console.log("Thread ID:", threadId);
+    document.addEventListener('DOMContentLoaded', function() {
+        var threadId = getParameterByName('threadId');
+        load_thread(threadId)
+        console.log("Thread ID:", threadId);
     });
 
+    const button = document.getElementById('save_button');
 
-// saves an exisiting document
-async function save_document() {
-    console.log("saving thread...");
-
-    const updatedContent = quill.root.innerHTML;
-    
-    const formData = new FormData();
-    formData.append('threadId', 14);
-    formData.append('newDocument', updatedContent)
-
-    const response = await fetch("https://softboxcollide.glitch.me/change_document", {
-        method: "POST",
-        mode: "cors",
-        body: formData
+    button.addEventListener('click', function(event) {
+        var threadId = getParameterByName('threadId');
+        save_document(threadId);
     });
 
-    console.log("Thread saved successfully.");
+    // saves an exisiting document
+    async function save_document(threadid) {
+        console.log("saving thread...");
+
+        const updatedContent = quill.root.innerHTML;
+        
+        const formData = new FormData();
+        formData.append('threadId', threadid);
+        formData.append('newDocument', updatedContent)
+
+        const response = await fetch("https://softboxcollide.glitch.me/change_document", {
+            method: "POST",
+            mode: "cors",
+            body: formData
+        });
+
+        console.log("Thread saved successfully.");
 }
 
 
