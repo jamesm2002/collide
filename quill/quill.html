@@ -2,12 +2,9 @@
 <html lang="en">
 <head>
     <!-- imports quill api -->
-    <title>quill tests</title>
+    <title>quill document</title>
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
     <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-    <!-- frebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 
 </head>
 
@@ -18,26 +15,23 @@
     <div id = "editor"></div>
 
     <!-- save button -->
-    <button id="save-button">Save</button>
+    <button id="save_button">Save</button>
+   
 
-    <script>
+<script>
+
+    // extracts id from the url
+    function getParameterByName(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, '\\$&');
+        var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    }
     
-    // access the firebase database
-    const firebaseConfig = {
-     apiKey: "AIzaSyAJ1aWDN75vBjI_xBP_OmwQIWPLp6e-usE",
-     authDomain: "collide-c5460.firebaseapp.com",
-     projectId: "collide-c5460",
-     storageBucket: "collide-c5460.appspot.com",
-     messagingSenderId: "855163288054",
-     appId: "1:855163288054:web:8bd9fb281dc771ce5cefd7"
-    };
-
-    // intialise the database
-    firebase.initializeApp(firebaseConfig);
-
-    // gets a reference to the realtime database
-    const database = firebase.database();
-
+    
     // creates toolbar option array
     var toolbarOptions = [
         ['bold', 'italic', 'underline', 'strike'], // adds text options
@@ -60,28 +54,62 @@
         theme: 'snow' 
     });
 
-    // get a reference to the document
-    const documentRef = database.ref('document');
 
 
-    // loads in the data from document upon loading
-    documentRef.on('value', (snapshot) => {
-        const documentContent = snapshot.val();
-        quill.clipboard.dangerouslyPasteHTML(documentContent || '');
+    // loads a document into the quill editor
+    async function load_thread(threadid) {
+        console.log("Loading thread...");
+
+        const formData = new FormData();
+        formData.append('threadId', threadid);
+
+        const response = await fetch("https://softboxcollide.glitch.me/get_thread", {
+            method: "POST",
+            mode: "cors",
+            body: formData
     });
 
-  // function to save the content
-  const saveDocument = () => {
-    console.log("Save clicked")
-    const updatedContent = quill.root.innerHTML;
-    console.log("Updating document content")
-    documentRef.set(updatedContent);
-    console.log("Updated successfully")
-  };
+    const result = await response.json();
+    const doclink = result.docPart[0].doclink;
 
-    // button used to save the content
-    document.getElementById('save-button').addEventListener('click', saveDocument);
-    </script>
+    quill.root.innerHTML = doclink;
+
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var threadId = getParameterByName('threadId');
+        load_thread(threadId)
+        console.log("Thread ID:", threadId);
+    });
+
+    const button = document.getElementById('save_button');
+
+    button.addEventListener('click', function(event) {
+        var threadId = getParameterByName('threadId');
+        save_document(threadId);
+    });
+
+    // saves an exisiting document
+    async function save_document(threadid) {
+        console.log("saving thread...");
+
+        const updatedContent = quill.root.innerHTML;
+        
+        const formData = new FormData();
+        formData.append('threadId', threadid);
+        formData.append('newDocument', updatedContent)
+
+        const response = await fetch("https://softboxcollide.glitch.me/change_document", {
+            method: "POST",
+            mode: "cors",
+            body: formData
+        });
+
+        console.log("Thread saved successfully.");
+}
+
+
+</script>
 
 </body>
 
