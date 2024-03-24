@@ -31,31 +31,65 @@ async function view_thread(threadId) {
 
     const result = await response.json();
 
+
+    // assigns values to each thread based on threadtype
+    let threadType;
     try {
-        const thread = {
-            threadId: result[0].threadid,
-            body: result[0].body,
-            threadtype: result[0].threadtype,
-            title: result[0].title,
-            doclink: 'n/a'
-        };
-        return thread;
+        threadType = result[0].threadtype;
+        console.log(threadType);
     } catch {
-        try {
-            const thread = {
+        threadType = result.threadPart[0].threadtype;
+        console.log(threadType);
+    }
+    
+    let thread;
+    
+    switch (threadType) {
+        case 'Text':
+            thread = {
+                threadId: result[0].threadid,
+                body: result[0].body,
+                threadtype: threadType,
+                title: result[0].title,
+                doclink: 'n/a',
+                image: 'n/a'
+            };
+            break;
+        case 'Doc':
+            thread = {
                 threadId: result.threadPart[0].threadid,
                 body: result.threadPart[0].body,
-                threadtype: result.threadPart[0].threadtype,
+                threadtype: threadType,
                 title: result.threadPart[0].title,
-                doclink: result.docPart[0].doclink
+                doclink: result.docPart[0].doclink,
+                image: 'n/a'
             };
-            return thread;
-        } catch (innerError) {
-            console.error("Error processing thread:", innerError);
-            return { threadId: null, body: "Error retrieving thread", threadtype: null, title: "Error", doclink: 'n/a' };
-        }
+            break;
+        case 'Image':
+            thread = {
+                threadId: result.threadPart[0].threadid,
+                body: result.threadPart[0].body,
+                threadtype: threadType,
+                title: result.threadPart[0].title,
+                doclink:'n/a',
+                image: result.imagePart && result.imagePart.length > 0 ? result.imagePart[0].image : 'n/a'
+            };
+            break;
+        default:
+            thread = {
+                threadId: 1000000000000000000000000,
+                body: 'error',
+                threadtype: 'error',
+                title: 'error',
+                doclink: 'n/a',
+                image: 'n/a'
+            };
+            break;
     }
+    
+    return thread;
 }
+
 
 
 // prints all threads 
@@ -80,10 +114,12 @@ async function view_thread(threadId) {
             postDiv.classList.add('post-container');
 
             const bodyParagraph = document.createElement('p');
+            bodyParagraph.textContent = threadBody;
+            postDiv.appendChild(bodyParagraph);
             
-            // this creates a link to a document
-            // if we have n/a then we can assume it's not a document
-            if (thread_value.doclink && thread_value.doclink !== 'n/a') {
+            if (thread_value.threadtype === 'Image') {
+                await get_image(thread_value.image, postDiv);
+            } else if (thread_value.doclink && thread_value.doclink !== 'n/a') {
                 const link = document.createElement('a');
                 link.textContent = threadBody;
                 link.href = `quill/quill.html?threadId=${threadId}`;
@@ -92,13 +128,34 @@ async function view_thread(threadId) {
                 bodyParagraph.textContent = threadBody;
             }
 
-            postDiv.appendChild(bodyParagraph);
             threadPostsContainer.appendChild(postDiv);
         }
     } else {
-        console.log("No threads found in server 1."); // error message
+        console.log("No threads found in server."); // error message
     }
-}
+};
 
+// gets the image from the database
+async function get_image(image, postDiv) {
+  
+    let formData = new FormData();
+    let imageName = image;
+    formData.append('imageName', imageName);
+
+    const response = await fetch("http://softboxcollide.glitch.me/get_image", {
+        method: "POST",
+        mode: "cors",
+        body: formData
+    });
+    
+    const imageBlob = await response.blob();
+    const imageURL = URL.createObjectURL(imageBlob);
+
+    const imageElement = document.createElement("img");
+    imageElement.src = imageURL;
+    imageElement.classList.add('post-image');
+
+    postDiv.appendChild(imageElement);
+    }
 // prints all threads upon loading
 document.addEventListener('DOMContentLoaded', print_threads);

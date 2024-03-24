@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="styles.css">
     <title>Collide chatpage</title>
     <script src="javascript.js"></script>
-    <script src="scripts/textpost.js"></script>
     <script src="scripts/loadthread.js"></script>
     
 </head>
@@ -29,28 +28,42 @@
             <createpost>
                 <script src = 'scripts/popupmenu.js'></script>
                 <script src = 'quill/newquill.js'></script>
+                <script src="scripts/addthread.js"></script>
                 <div class="createpost-container" id="popupContainer">
                     <div class="popup-content">
                         <label for="threadType">Select Thread Type:</label><br>
                         <select id="threadType" name="threadType">
                             <option value="text">Text Thread</option>
                             <option value="document">Document Thread</option>
+                            <option value="image">Image Thread</option>
                         </select><br><br>
-            
-                        <div id="threadFormText" style="display: block;">
+
+                        <!-- thread body -->
+                        <div id="threadBodyText" style="display: block;">
                             <label for="threadBody">Thread Body for Text:</label><br>
                             <textarea id="threadBody" name="threadBody" rows="4" cols="50"></textarea><br>
                         </div>
-                        
-                        <div id="threadFormDocument" style="display: none;">
-                            <label for="threadBody">Thread Body for Document:</label><br>
+
+                        <!-- document body -->
+                        <div id="threadBodyDocumentDiv" style="display: none;">
+                            <label for="documentName">Document Name:</label><br>
+                            <input type="text" id="documentName" name="documentName" size="30"><br><br>
+                            <label for="threadBodyDocument">Thread Body for Document:</label><br>
                             <textarea id="threadBodyDocument" name="threadBodyDocument" rows="4" cols="50"></textarea><br>
                         </div>
-                        
-                        <button type="button" onclick="add_text()">Submit</button> 
+
+                        <!-- image body and file -->
+                        <div id="threadBodyImage" style="display: none;">
+                            <label for="imageBody">Thread Body for Image:</label><br>
+                            <textarea id="imageBody" name="imageBody" rows="4" cols="50"></textarea><br>
+                            <label for="file_input">Upload Image:</label><br>
+                            <input type="file" id="file_input"><br><br>
+                        </div>
+                        <!-- all types of buttons needed for uploading-->>
+                        <button type="button" id="submitText" onclick="add_text()" style="display: block;">Submit Text</button> 
+                        <button type="button" id="submitDocument" onclick="create_document()" style="display: none;">Submit Document</button>
+                        <button type="button" id="submitImage" onclick="add_image()" style="display: none;">Submit Image</button>
                         <button type="button" onclick="closePopup()">Close</button>
-                        <button type="button" onclick="create_document()">Document</button>
-                        <a id="quillLink" href="quill/quill.html">Create Document</a>
                     </div>
                 </div>
             </createpost>
