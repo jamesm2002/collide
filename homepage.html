@@ -9,10 +9,10 @@
     <link rel="stylesheet" href="styles.css">
     <title>Collide chatpage</title>
     <script src="scripts/javascript.js"></script>
-    <script src="scripts/textpost.js"></script>
     <script src="scripts/creategroup.js"></script>
     <script src="scripts/loadthread.js"></script>
     <script src="scripts/loadserver.js"></script>
+
 </head>
 <div class="hero">
     <nav>
@@ -25,36 +25,52 @@
                         stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" />
                     <path d="M15 18H9" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" />
                 </svg></li>
+            
+            <!--options to create new posts-->
             <createpost>
-                <script src='scripts/popupmenu.js'></script>
-                <script src='quill/newquill.js'></script>
+                <script src = 'scripts/popupmenu.js'></script>
+                <script src = 'quill/newquill.js'></script>
+                <script src="scripts/addthread.js"></script>
                 <div class="createpost-container" id="popupContainer">
                     <div class="popup-content">
                         <label for="threadType">Select Thread Type:</label><br>
                         <select id="threadType" name="threadType">
                             <option value="text">Text Thread</option>
                             <option value="document">Document Thread</option>
+                            <option value="image">Image Thread</option>
                         </select><br><br>
 
-                        <div id="threadFormText" style="display: block;">
+                        <!-- thread body -->
+                        <div id="threadBodyText" style="display: block;">
                             <label for="threadBody">Thread Body for Text:</label><br>
                             <textarea id="threadBody" name="threadBody" rows="4" cols="50"></textarea><br>
                         </div>
 
-                        <div id="threadFormDocument" style="display: none;">
-                            <label for="threadBody">Thread Body for Document:</label><br>
-                            <textarea id="threadBodyDocument" name="threadBodyDocument" rows="4"
-                                cols="50"></textarea><br>
+                        <!-- document body -->
+                        <div id="threadBodyDocumentDiv" style="display: none;">
+                            <label for="documentName">Document Name:</label><br>
+                            <input type="text" id="documentName" name="documentName" size="30"><br><br>
+                            <label for="threadBodyDocument">Thread Body for Document:</label><br>
+                            <textarea id="threadBodyDocument" name="threadBodyDocument" rows="4" cols="50"></textarea><br>
                         </div>
 
-                        <button type="button" onclick="add_text()">Submit</button>
+                        <!-- image body and file -->
+                        <div id="threadBodyImage" style="display: none;">
+                            <label for="imageBody">Thread Body for Image:</label><br>
+                            <textarea id="imageBody" name="imageBody" rows="4" cols="50"></textarea><br>
+                            <label for="file_input">Upload Image:</label><br>
+                            <input type="file" id="file_input"><br><br>
+                        </div>
+                        <!-- all types of buttons needed for uploading-->>
+                        <button type="button" id="submitText" onclick="add_text()" style="display: block;">Submit Text</button> 
+                        <button type="button" id="submitDocument" onclick="create_document()" style="display: none;">Submit Document</button>
+                        <button type="button" id="submitImage" onclick="add_image()" style="display: none;">Submit Image</button>
                         <button type="button" onclick="closePopup()">Close</button>
-                        <button type="button" onclick="create_document()">Document</button>
-                        <a id="quillLink" href="quill/quill.html">Create Document</a>
                     </div>
                 </div>
+            </createpost>
                 <div id="successMessage" style="display: none;">Submission successful!</div>
-
+                
                 <li><svg width="800px" height="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
                         onclick="openPopup()">
                         <path d="M15 12L12 12M12 12L9 12M12 12L12 9M12 12L12 15" stroke="#1C274C" stroke-width="1.5"
@@ -64,7 +80,23 @@
                             stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" />
                     </svg></li>
             </createpost>
+            <li>
+                <div class="search-box">
+                    <div class="row">
+                        <input type="text" id="input-box" placeholder="Search anything">
+                        <svg width="800px" height="800px" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path d="M18.5 18.5L22 22" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" />
+                            <path
+                                d="M6.75 3.27093C8.14732 2.46262 9.76964 2 11.5 2C16.7467 2 21 6.25329 21 11.5C21 16.7467 16.7467 21 11.5 21C6.25329 21 2 16.7467 2 11.5C2 9.76964 2.46262 8.14732 3.27093 6.75"
+                                stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" />
+                        </svg>
+                    </div>
+                    <div class="result-box">
+                    </div>
 
+                </div>
+            </li>
             <leftsec>
                 <li><svg width="800px" height="800px" viewBox="0 0 24 24" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
@@ -91,19 +123,24 @@
                     <img onclick="changeStatus()" src="images/profile.png">
                     <p onclick="changeStatus()">Status</p>
 
+
                     <span onclick="changeStatus()" id="statusSpan">Active</span>
                 </a>
-                <a href="#" class="sub-menu-link" onclick="document.location='settings.html'">
+                <a href="#" class="sub-menu-link">
                     <img src="images/setting.png">
                     <p>Settings & Privacy</p>
                     <span>></span>
                 </a>
-                <a href="login.htm" class="sub-menu-link">
-                    <img src="images/logout.png">
-                    <p>Logout</p>
+                <a href="#" class="sub-menu-link">
+                    <img src="images/help.png">
+                    <p>Light Mode</p>
                     <span>></span>
                 </a>
-
+                <a href="login.htm" class="sub-menu-link">
+                    <img src="images/logout.png">
+                    <p >Logout</p>
+                    <span>></span>
+                </a>
             </div>
         </div>
 
@@ -266,6 +303,7 @@
                             <path d="M8 12H8.009M11.991 12H12M15.991 12H16" stroke="#1C274C" stroke-width="2"
                                 stroke-linecap="round" stroke-linejoin="round" />
                         </svg></button>
+
                 </div>
                 <p class="author">Author - Aldo </p>
                 </class>
@@ -278,11 +316,14 @@
     <button id="backToTopBtn" onclick="scrollToTop()">Back to Top</button>
 
 
+    <button id="backToTopBtn" onclick="scrollToTop()">Back to Top</button>
+    
+
 
     <script>
         toggleSvgColor();
     </script>
-
 </body>
+
 
 </html>
