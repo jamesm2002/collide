@@ -1,6 +1,8 @@
 // searches for all threads in a server
 async function view_threads() {
+
     console.log("Got here");
+
   
     const formData = new FormData();
     formData.append('serverId', 1); 
@@ -11,6 +13,7 @@ async function view_threads() {
       body: formData
     });
   
+
     const result = await response.json();
     console.log(result)
     return result;
@@ -18,6 +21,7 @@ async function view_threads() {
 
 // returns an array of all values for a thread
 async function view_thread(threadId) {
+
     console.log("Got here");
   
     const formData = new FormData();
@@ -30,7 +34,6 @@ async function view_thread(threadId) {
     });
 
     const result = await response.json();
-
 
     // assigns values to each thread based on threadtype
     let threadType;
@@ -103,7 +106,6 @@ async function print_threads() {
 
     if (threadsResponse && threadsResponse.length > 0) {
         console.log("Printing posts of all threads in server 1:");
-
         for (let i = threadsResponse.length - 1; i >= 0; i--) {
             const thread = threadsResponse[i];
             console.log('thread reponse:', threadsResponse[i])
