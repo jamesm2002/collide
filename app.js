@@ -5,8 +5,9 @@ let clicked = null;
 let userEvents = localStorage.getItem("userEvents") ? JSON.parse(localStorage.getItem("userEvents")) : [];
 const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
+const userID = localStorage.getItem("userId");
+
 async function loadCalendar() {
-  userID = 1
   let formData = new FormData(); 
   formData.append('userId', userID); 
 
@@ -105,7 +106,6 @@ function buttons() {
   btnDelete.addEventListener("click", async function () {
 
     let formData = new FormData(); 
-    let userID = 1; 
     formData.append("userId", userID);    
 
     const response = await fetch("https://softboxcollide.glitch.me/get_all_events_for_user", { 
@@ -154,8 +154,7 @@ function buttons() {
         title: txtTitle.value.trim(),        
       });     
 
-      let formData = new FormData(); 
-      let userID = 1; 
+      let formData = new FormData();  
       formData.append('userId', userID);
       formData.append('name', txtTitle.value); 
       formData.append('date', clicked); 
