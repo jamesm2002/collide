@@ -48,6 +48,7 @@ async function view_thread(threadId) {
         case 'Text':
             thread = {
                 threadId: result[0].threadid,
+                userId: result[0].creatorid,
                 body: result[0].body,
                 threadtype: threadType,
                 title: result[0].title,
@@ -59,6 +60,7 @@ async function view_thread(threadId) {
             thread = {
                 threadId: result.threadPart[0].threadid,
                 body: result.threadPart[0].body,
+                userId: result.threadPart[0].creatorid,
                 threadtype: threadType,
                 title: result.threadPart[0].title,
                 doclink: result.docPart[0].doclink,
@@ -68,6 +70,7 @@ async function view_thread(threadId) {
         case 'Image':
             thread = {
                 threadId: result.threadPart[0].threadid,
+                userId: result.threadPart[0].creatorid,
                 body: result.threadPart[0].body,
                 threadtype: threadType,
                 title: result.threadPart[0].title,
@@ -86,14 +89,14 @@ async function view_thread(threadId) {
             };
             break;
     }
-    
+    console.log(thread)
     return thread;
 }
 
 
 
 // prints all threads 
-  async function print_threads() {
+async function print_threads() {
     const threadsResponse = await view_threads();
     console.log(threadsResponse)
     const threadPostsContainer = document.getElementById('threadPostsContainer');
@@ -101,39 +104,78 @@ async function view_thread(threadId) {
     if (threadsResponse && threadsResponse.length > 0) {
         console.log("Printing posts of all threads in server 1:");
 
-        for (const thread of threadsResponse) {
-           
-            const threadId = thread.threadid;
-            
-            const thread_value = await view_thread(threadId);
-            console.log(thread_value);
-            
-            const threadBody = thread_value.body;
-
-            const postDiv = document.createElement('div');
-            postDiv.classList.add('post-container');
-
-            const bodyParagraph = document.createElement('p');
-            bodyParagraph.textContent = threadBody;
-            postDiv.appendChild(bodyParagraph);
-            
-            if (thread_value.threadtype === 'Image') {
-                await get_image(thread_value.image, postDiv);
-            } else if (thread_value.doclink && thread_value.doclink !== 'n/a') {
-                const link = document.createElement('a');
-                link.textContent = threadBody;
-                link.href = `quill/quill.html?threadId=${threadId}`;
-                bodyParagraph.appendChild(link);
-            } else {
-                bodyParagraph.textContent = threadBody;
-            }
-
-            threadPostsContainer.appendChild(postDiv);
+        for (let i = threadsResponse.length - 1; i >= 0; i--) {
+            const thread = threadsResponse[i];
+            console.log('thread reponse:', threadsResponse[i])
+            print_thread(thread, threadPostsContainer);
         }
     } else {
         console.log("No threads found in server."); // error message
     }
 };
+
+// prints an individual thread 
+async function print_thread(thread, container) {
+    const threadId = thread.threadid;
+    const thread_value = await view_thread(threadId);
+    
+    const threadBody = thread_value.body;
+
+    const postDiv = document.createElement('div');
+    postDiv.classList.add('post-container');
+
+    // Create user info div
+    const user_info = await get_user_info(thread_value.userId);
+    const userInfoDiv = document.createElement('div');
+    userInfoDiv.classList.add('user-info');
+    
+    // Add username
+    const usernameSpan = document.createElement('span');
+    usernameSpan.classList.add('username');
+    usernameSpan.textContent = user_info[0].username;
+    userInfoDiv.appendChild(usernameSpan);
+
+    postDiv.appendChild(userInfoDiv);
+
+    // Create post body container div
+    const postBodyContainer = document.createElement('div');
+    postBodyContainer.classList.add('post-body-container');
+
+    // Add post body paragraph
+    const bodyParagraph = document.createElement('p');
+    bodyParagraph.textContent = threadBody;
+    postBodyContainer.appendChild(bodyParagraph);
+
+    // Append post body container to post div
+    postDiv.appendChild(postBodyContainer);
+    
+    const deleteButton = document.createElement('button');
+    deleteButton.textContent = 'Delete';
+    deleteButton.classList.add('delete-button');
+    deleteButton.addEventListener('click', async () => {
+        // Call function to delete the thread
+        await delete_thread(thread_value.threadId);
+        // Remove the post from the container after deletion
+        postDiv.remove();
+    });
+    postDiv.appendChild(deleteButton);
+
+    if (thread_value.threadtype === 'Image') {
+        const imageContainer = document.createElement('div');
+        imageContainer.classList.add('image-container');
+        postBodyContainer.appendChild(imageContainer); 
+        await get_image(thread_value.image, imageContainer);
+    } else if (thread_value.doclink && thread_value.doclink !== 'n/a') {
+        const link = document.createElement('a');
+        link.textContent = threadBody;
+        link.href = `quill/quill.html?threadId=${threadId}`;
+        postBodyContainer.appendChild(link);
+    } else {
+        bodyParagraph.textContent = threadBody;
+    }
+
+    container.appendChild(postDiv);
+}
 
 // gets the image from the database
 async function get_image(image, postDiv) {
@@ -157,5 +199,38 @@ async function get_image(image, postDiv) {
 
     postDiv.appendChild(imageElement);
     }
+
+// gets the users info
+async function get_user_info(userId) {
+    const formData = new FormData();
+    formData.append('userId', userId);
+
+    const response = await fetch("http://softboxcollide.glitch.me/get_user_info", {
+        method: "POST",
+        mode: "cors",
+        body: formData
+    });
+
+    const result = await response.json();
+    
+    return result;
+    
+}
+
+async function delete_thread(threadId) {
+    const formData = new FormData();
+    formData.append('threadId', threadId);
+
+    const response = await fetch("http://softboxcollide.glitch.me/delete_thread", {
+        method: "POST",
+        mode: "cors",
+        body: formData
+    });
+
+    //const result = await response.json();
+    
+    ///return result;
+    
+}
 // prints all threads upon loading
 document.addEventListener('DOMContentLoaded', print_threads);
