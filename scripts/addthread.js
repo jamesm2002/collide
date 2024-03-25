@@ -1,5 +1,3 @@
-
-// function to add a text thread
 async function add_text() {
     console.log("Adding text thread...");
   
@@ -11,26 +9,27 @@ async function add_text() {
     formData.append('serverId', 1);
     formData.append('creatorId', 1);
   
-  await fetch("https://softboxcollide.glitch.me/add_text_thread", {
-    method: "POST",
-    mode: "cors",
-    body: formData
-  });
-  
-  
-  // tells user post was created successfully
-  const successMessage = document.getElementById('successMessage');
-      successMessage.style.display = 'block';
-  
-      setTimeout(closePopup, 2000);
-  }
-  
-  // hides the pop up message
-  function closePopup() {
-    
-    const popupContainer = document.getElementById('popupContainer');
-    popupContainer.style.display = 'none';
-  }
+    try {
+        const response = await fetch("https://softboxcollide.glitch.me/add_text_thread", {
+            method: "POST",
+            mode: "cors",
+            body: formData
+        });
+
+        if (response.ok) {
+           
+            const successMessage = document.getElementById('successMessage');
+            successMessage.style.display = 'block';
+
+            setTimeout(closePopup, 2000);
+        } else {
+            console.error("Failed to add text thread.");
+        }
+    } catch (error) {
+        console.error("Error:", error);
+    }
+}
+
 
 
   // function to add images 
@@ -62,6 +61,7 @@ async function add_text() {
             // Check if the request was successful
             if (response.ok) {
                 console.log("Image added successfully.");
+                //document.addEventListener('DOMContentLoaded', print_thread(thread, threadPostsContainer));
             } else {
                 console.error("Failed to add image.");
             }
