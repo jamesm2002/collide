@@ -9,14 +9,21 @@ async function addUser() {
     password2 = document.getElementById('passwordBox2').value;
 
     if (username=="" || email=="" || firstname=="" || surname=="" || password1=="") {
-        alert("Please fill in all fields");
+        alert("Please fill in all fields.");
+        return 1;
+    }
+
+    if (!document.getElementById('ageCheck').checked) {
+        alert("You must be 13 or older to use this site. If you are older than 13, check the box to continue.");
         return 1;
     }
 
     if (password1 != password2) {
-        alert("Passwords do not match");
+        alert("The two passwords you inserted do not match.");
         return 1;
     }
+
+
 
     let formData = new FormData();
     formData.append('username', username);
