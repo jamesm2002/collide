@@ -91,7 +91,7 @@ button {
   color: #fff;
 }
 
-.event {
+.userEvents {
   font-size: 10px;
   padding: 3px;
   background-color: #9a0000;
@@ -99,11 +99,6 @@ button {
   border-radius: 5px;
   max-height: 55px;
   overflow: hidden;
-}
-
-.event.holiday {
-  background-color: palegreen;
-  color: #3d3d3d;
 }
 
 .plain {

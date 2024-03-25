@@ -1,107 +1,8 @@
-const holidays = [
-  {
-    hdate: "01-01-2023",
-    holiday: "New Year Day",
-  },
-  {
-    hdate: "15-01-2023",
-    holiday: "Pongal",
-  },
-  {
-    hdate: "16-01-2023",
-    holiday: "Thiruvalluvar Day",
-  },
-  {
-    hdate: "17-01-2023",
-    holiday: "Uzhavar Thirunal",
-  },
-  {
-    hdate: "26-01-2023",
-    holiday: "Republic Day",
-  },
-  {
-    hdate: "05-02-2023",
-    holiday: "Thai Poosam",
-  },
-  {
-    hdate: "22-03-2023",
-    holiday: "Telugu New Year Day",
-  },
-  {
-    hdate: "01-04-2023",
-    holiday: "Annual closing of Accounts for Commercial Banks and Co-operative Banks",
-  },
-  {
-    hdate: "04-04-2023",
-    holiday: "Mahaveer Jayanthi",
-  },
-  {
-    hdate: "07-04-2023",
-    holiday: "Good Friday",
-  },
-  {
-    hdate: "14-04-2023",
-    holiday: "Tamil New Years Day and Dr.B.R.Ambedkars Birthday",
-  },
-  {
-    hdate: "22-04-2023",
-    holiday: "Ramzan (Idul Fitr)",
-  },
-  {
-    hdate: "01-05-2023",
-    holiday: "May Day",
-  },
-  {
-    hdate: "29-06-2023",
-    holiday: "Bakrid(Idul Azha)",
-  },
-  {
-    hdate: "29-07-2023",
-    holiday: "Muharram",
-  },
-  {
-    hdate: "15-08-2023",
-    holiday: "Independence Day",
-  },
-  {
-    hdate: "06-09-2023",
-    holiday: "Krishna Jayanthi",
-  },
-  {
-    hdate: "17-09-2023",
-    holiday: "Vinayakar Chathurthi",
-  },
-  {
-    hdate: "28-09-2023",
-    holiday: "Milad-un-Nabi",
-  },
-  {
-    hdate: "02-10-2023",
-    holiday: "Gandhi Jayanthi",
-  },
-  {
-    hdate: "23-10-2023",
-    holiday: "Ayutha Pooja",
-  },
-  {
-    hdate: "24-10-2023",
-    holiday: "Vijaya Dasami",
-  },
-  {
-    hdate: "12-11-2023",
-    holiday: "Deepavali",
-  },
-  {
-    hdate: "25-12-2023",
-    holiday: "Christmas",
-  },
-];
-
 const calendar = document.querySelector("#calendar");
 const monthBanner = document.querySelector("#month");
 let navigation = 0;
 let clicked = null;
-let events = localStorage.getItem("events") ? JSON.parse(localStorage.getItem("events")) : [];
+let userEvents = localStorage.getItem("userEvents") ? JSON.parse(localStorage.getItem("userEvents")) : [];
 const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
 async function loadCalendar() {
@@ -160,7 +61,6 @@ async function loadCalendar() {
      
         if (userEventOfTheDay){
            const eventDiv = document.createElement("div"); 
-           eventDiv.classList.add("event"); 
            eventDiv.classList.add("userEvents"); 
            eventDiv.innerText = userEventOfTheDay.eventName; 
            dayBox.appendChild(eventDiv); 
@@ -177,8 +77,8 @@ async function loadCalendar() {
     calendar.append(dayBox);
   }
 
-  console.log("Loaded Events");
-  console.log(result);
+  //console.log("Loaded Events");
+  //console.log(result);
   return result; 
 
 }
@@ -215,7 +115,7 @@ function buttons() {
     }); 
 
     const result = await response.json();
-    console.log(result); 
+    //console.log(result); 
 
     // Add all events to an array 
     for (let i = 0; i < result.length; i++)
@@ -229,7 +129,6 @@ function buttons() {
 
       let formDataDel = new FormData(); 
       formDataDel.append("eventId", eventFound.eventID);
-      console.log("Event found: " + eventFound.eventID);
       const responseDel = await fetch("https://softboxcollide.glitch.me/delete_event", { 
         method: "POST", 
         mode: "cors", 
@@ -237,9 +136,9 @@ function buttons() {
       });
 
       const delResult = await responseDel.json(); 
-      console.log("Event Deleted successfully");
-      console.log(delResult);    
-      localStorage.setItem("events", JSON.stringify(events))  
+      //console.log("Event Deleted successfully");
+     // console.log(delResult);     
+      localStorage.setItem("events", JSON.stringify(userEvents))
     }
     closeModal();
     return result;     
@@ -250,7 +149,7 @@ function buttons() {
     if (txtTitle.value) {
       txtTitle.classList.remove("error");
 
-      events.push({
+      userEvents.push({
         date: clicked,
         title: txtTitle.value.trim(),        
       });     
@@ -269,11 +168,8 @@ function buttons() {
       
       const result = await response.json(); 
       console.log(result); 
-      console.log("Event added"); 
-
-
+      
       txtTitle.value = "";
-      //localStorage.setItem("events", JSON.stringify(events));
       closeModal();
     } else {
       txtTitle.classList.add("error");
@@ -287,7 +183,7 @@ const addEventForm = document.querySelector("#addEvent");
 
 function showModal(dateText) {
   clicked = dateText;
-  const eventOfTheDay = events.find((e) => e.date == dateText);
+  const eventOfTheDay = userEvents.find((e) => e.date == dateText);
   if (eventOfTheDay) {
     //Event already Preset
     document.querySelector("#eventText").innerText = eventOfTheDay.title;    
