@@ -7,6 +7,7 @@
 
 body {
     background-color: #DAE0E6;
+    margin-top: 20px;
 }
 
 /*<-----nav----->*/
@@ -21,15 +22,9 @@ nav {
     position: fixed;
     margin: 0;
     margin-bottom: 100px;
-}
-
-body {
-    margin-top: 20px;
-}
-
-nav{
     z-index: 3;
 }
+
 nav ul {
     width: 100%;
     text-align: center;
@@ -132,13 +127,8 @@ nav ul li svg {
     margin-right: 15px;
 }
 
-.sub-menu-link span {
-    font-size: 22px;
-    transition: transform 0.5s;
-}
 
 .sub-menu-link:hover span {
-    transform: translateX(2px);
 }
 
 .sub-menu-link:hover p {
@@ -159,8 +149,6 @@ nav ul li svg {
     align-items: center;
     height: 30px;
 }
-
-.input-box {}
 
 div.row>input {
     flex: 1;
@@ -211,10 +199,6 @@ h1 {
     text-align: center;
 }
 
-form {
-    display: flex;
-    flex-direction: column;
-}
 
 label {
     margin-bottom: 10px;
@@ -247,8 +231,10 @@ input[type="submit"]:hover {
     overflow: hidden;
 }
 
-.post1 {
+
+.allpost {
     margin-top: 75px;
+    display: none;
 }
 
 .user-info {
@@ -328,7 +314,7 @@ input[type="submit"]:hover {
 }
 
 .comment-btn:hover {
-    text-decoration: underline; /* Underline on hover, similar to Reddit's style */
+    text-decoration: underline; 
 }
 
 
@@ -366,7 +352,6 @@ input[type="submit"]:hover {
 /*<-----side nav----->*/
 .side-nav {
     width: 110px;
-    height: 500px;
     position: fixed;
     bottom: auto;
     top: 100px;
@@ -386,38 +371,6 @@ input[type="submit"]:hover {
     object-fit: cover;
 }
 
-.side-nav:hover {
-    width: 250px;
-}
-
-.side-nav:hover .user div {
-    display: block;
-}
-
-.side-nav:hover .user {
-    width: 100%;
-    background: rgba(255, 255, 255, 0.5);
-    backdrop-filter: blur(5px);
-}
-
-
-.side-nav:hover .user-img {
-    margin: 0;
-    height: 40px;
-    width: 40px;
-}
-
-.side-nav:hover ul li p {
-    display: block;
-}
-
-.side-nav:hover ul li img {
-    margin-right: 10px;
-}
-
-.side-nav:hover ul li {
-    justify-content: flex-start;
-}
 .user {
     display: flex;
     align-items: center;
@@ -471,7 +424,6 @@ ul li img {
 
 ul li p {
     white-space: nowrap;
-    display: none;
 }
 
 .rightsec{
@@ -543,6 +495,28 @@ nav ul li .createpost {
     cursor: pointer;
 }
 
+.createserver-container {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.9);
+    justify-content: center;
+    align-items: center;
+}
+
+.createserver-content {
+    background: darkgrey;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+nav ul li .createserver {
+    cursor: pointer;
+}
 
 .group-picture img {
     width: 100%;
@@ -564,11 +538,12 @@ nav ul li .createpost {
     background-color: white;
     margin-top: -20px; /* Adjust the negative margin as needed for the desired overlap */
     z-index: 1; /* Set a higher z-index to make sure the titlebar is displayed above the image */
-    padding-right:40% ;
+    padding-right: 40% ;
     display: flex;
     align-items: center;
     justify-content:center;
     position: relative;
+    flex-direction: row;
 }
 
 .group-info {
@@ -580,9 +555,31 @@ nav ul li .createpost {
 
 .titlebar p {
     font-size: 50px; /* Adjust the font size as needed */
-    margin: 0; /* Remove default margin */
-    padding: 0px 5%;
+    margin-top: -10px; /* Remove default margin */
+    position: relative;
 }
+
+.group-navbar{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    text-align: right;
+    position: absolute;
+    right: 10px;
+}
+
+.group-navbar h4{
+    margin: 10px;
+    padding-right: 105px;
+    padding-left: 1px;
+    text-align: right;
+}
+
+.group-navbar h3{
+
+    
+}
+
 .btop{
     justify-content: center;
     align-items: center;
@@ -640,22 +637,8 @@ label {
 	margin : 0px 100px 0px 100px;
 }
 
-.light-mode {
-    --bg-color: #ffffff;
-    --text-color: #000000;
-}
 
-.dark-mode {
-    --bg-color: #333333;
-    --text-color: #ffffff;
-}
 
-.container {
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    padding: 20px;
-    text-align: center;
-}
 
 sectionlevel {
     margin: 0;
@@ -682,7 +665,7 @@ sectionlevel {
     flex: 1;
     padding: 20px;
     box-sizing: border-box;
-    overflow-y: auto;
+    order: 1; /* Set the order to 1 to place it on the left */
 }
 
 .comment {
@@ -699,15 +682,278 @@ sectionlevel {
 }
 
 
-form label{
-    font-size: 18px;
-    color:#8f9096;
+
+#bimage-container {
+    flex: 1;
+    order: 1; /* Set the order to 1 to place it on the left */
 }
 
-form .form-control,form .form-control:focus{
-    border-color:transparent;
-    border-bottom-color: #bebcc1;
-    box-shadow:none;
+#bimage {
+    width: 100%;
+    height: auto;
+    max-height: 50%; /* Set a maximum height for the image */
+    display: block;
+    margin: 0 auto;
+    border-radius: 0px;
+}
+
+#comments-container {
+    flex: 1;
+    padding: 20px;
+    box-sizing: border-box;
+    order: 2; /* Set the order to 2 to place it on the right */
+    background-color: #fff; /* Set background color for the comments container */
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+.bcomment {
+    margin-bottom: 10px;
+    margin-top: 10px; /* Set a fixed distance between comments */
+}
+
+
+.comment-username {
+    font-weight: bold;
+}
+
+.container .top{
+    position: relative;
+    border-bottom: 1px solid #eee;
+}
+
+.top .likes__count{
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #ffadad;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 20px;
+    border-bottom-right-radius: 20px;
+    color: white;
+}
+
+.likes__count small{
+    font-size: 20px;
+    margin-left: 5px;
+}
+
+.form__info{
+    justify-content: center;
+    text-align: center;
+}
+.centerman{
+}
+
+.form__info input{
+    border: none;
+    background: transparent;
+    width: 70%;
+    border-bottom: 1px solid #ccc;
+    font-size: 18px;
+    margin-bottom: 10px;
+    outline: none;
+}
+
+.form__info input::placeholder{
+    color: #ddd;
+}
+.commentform{
+    display: grid;
+    width: 100%;
+    height: 80px;
+    grid-template-columns: 5% 80% 15%;
+}
+
+
+
+/* COMMENTS */
+.comments__container {
+    width: 800px; /* Adjust this to fit your layout */
+    max-height: 800px; /* Or whatever height you prefer */
+    margin: auto; /* This will center the container in its parent if the parent is also flex */
+    display: flex;
+    height: 775px;
+    flex-direction: column; /* Stack the children vertically */
+    align-items: center; /* Align children horizontally in the center */
+    overflow-y: auto; /* Keep the scrollbar if needed */
+}
+
+.comment__card{
+    width: 100%;
+    height: 80px;
+    display: grid;
+    grid-template-columns: 10% auto;
+    margin: 0.5rem;
+    border-bottom: 1px solid #eee;
+}
+
+.comments__container {
+    display: flex;
+    flex-direction: column-reverse; /* This makes elements stack from the bottom up */
+    align-items: flex-start; /* Align items to the start of the flex container (top in this case) */
+    max-height: 800px; /* Set a max-height to your preference */
+    overflow-y: auto; /* Adds a scrollbar if content overflows */
+    margin-bottom: auto; /* This pushes the content to the bottom if there's space available */
+}
+
+.comment__card .pic{
+    background-color: #48cae4;
+    border-radius: 50%;
+    margin: 10%;
+    font-size: 25px;
+    color: white;
+    text-transform: uppercase;
+    justify-content: center;
+    align-items: center;
+}
+
+.comment__info{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.comment__info .nickname{
+    color: #aaa;
+}
+
+.comment__info .comment{
+    margin: 5px 0;
+}
+
+.submit__btn {
+    padding: 10px 20px;
+    background-color: #48cae4; /* A pleasant blue shade, but feel free to choose your own color */
+    border: none;
+    border-radius: 5px; /* Rounded corners */
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .submit__btn:hover {
+    background-color: #00b4d8; /* A slightly lighter blue for hover effect */
+  }
+  
+  .submit__btn:active {
+    transform: scale(0.98); /* Slightly scale down the button when clicked */
+  }
+
+.center__display {
+    flex: 1;
+    position: relative;
+
+}
+.post-image1 {
+    width: auto; /* This will make the image responsive */
+    max-height: 500px;
+    margin: 10px 0; /* Adjusted margin for top and bottom spacing */
+}
+
+
+.top {
+    border-bottom: 1px solid #eee;
+}
+
+.rightsidecontent{
+    background-color: white;
+        /* Adjust the width, padding, or margin as needed */
+        flex: 2; /* Takes up 1 portion of the space */
+       border-radius: 50px;
+}
+.Chat {
+    background-color: white;
+    display: flex; /* Align children side by side */
+    align-items: flex-start; /* Align children to the top */
+    justify-content: space-between; /* Put some space between the elements */
+    margin: 100px;
+    border-style: solid;
+    border-color: #c6c4c4;
+    border-radius: 50px;
+    border-width: 5px;
+}
+
+.image-container{
+    text-align: center;
+}
+
+.rightsidecontent p{
+    text-align: center;
+}
+.allPost{
+    display: none;
+}
+.chat-Container {
+    display: block;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    margin: 0; /* Remove default margin */
+}
+.chatcontainer{
+justify-content: center; /* Center horizontally */
+align-items: center; /* Center vertically */
+margin: 0; /* Remove default margin */
+}
+
+.Chat p{
+    margin: 50px;
+}
+
+.grouppage-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.create-form-container {
+    border: 1px solid #ddd;
+    padding: 20px;
+    box-shadow: 0 0 10px #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    max-width: 500px; /* Adjust as necessary */
+    border-radius: 30px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input[type="text"],
+.form-group input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.creategroupbutton {
+    background-color: rgb(139, 194, 212);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block; /* Ensure it's a block-level element */
+    width: 100%; /* Full-width button */
+}
+
+.creategroupbutton:hover {
+    background-color: lightblue;
 }
 
 /*<-----settings----->*/
@@ -759,6 +1005,7 @@ form .form-control,form .form-control:focus{
 }
 
 .wrapper {
+    display: none;
     width: 1150px;
     height: 850px;
     margin: 80px auto 0 auto;
