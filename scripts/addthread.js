@@ -1,13 +1,12 @@
-async function add_text() {
+async function add_text(serverid, userid) {
     console.log("Adding text thread...");
-  
     const threadBody = document.getElementById('threadBody').value.toString();
   
     const formData = new FormData();
     formData.append('title', 'Your Title');
     formData.append('body', threadBody);
-    formData.append('serverId', 1);
-    formData.append('creatorId', 1);
+    formData.append('serverId', serverid);
+    formData.append('creatorId', userid);
   
     try {
         const response = await fetch("https://softboxcollide.glitch.me/add_text_thread", {
@@ -33,7 +32,7 @@ async function add_text() {
 
 
   // function to add images 
-  async function add_image() {
+  async function add_image(serverid, userid) {
     const fileInput = document.getElementById('file_input');
     const file = fileInput.files[0]; // Get the selected file
 
@@ -47,8 +46,8 @@ async function add_text() {
         formData.append('title', 'Your Title');
         formData.append('body', threadBody);
         formData.append('file', file);
-        formData.append('serverId', 1);
-        formData.append('creatorId', 1);
+        formData.append('serverId', serverid);
+        formData.append('creatorId', userid);
 
         try {
             // Send POST request to the server

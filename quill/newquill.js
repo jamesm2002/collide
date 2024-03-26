@@ -1,7 +1,7 @@
 // will create a new file for user
 
 // saves and creates a document thread
-async function create_document() {
+async function create_document(serverid, userid) {
     console.log("Adding document thread...");
 
     const threadBody = document.getElementById('threadBodyDocument').value.toString();
@@ -15,8 +15,8 @@ async function create_document() {
     const formData = new FormData();
     formData.append('title', 'Your Title');
     formData.append('body', threadBody);
-    formData.append('serverId', 1);
-    formData.append('creatorId', 1);
+    formData.append('serverId', serverid);
+    formData.append('creatorId', userid);
     formData.append('docLink', updatedContent);
 
     await fetch("https://softboxcollide.glitch.me/add_document_thread", {
