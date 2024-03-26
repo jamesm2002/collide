@@ -170,7 +170,7 @@ async function print_thread(thread, container) {
         }
     } else {
         const noCommentsMessage = document.createElement('p');
-        noCommentsMessage.textContent = "No comments available for this thread.";
+        noCommentsMessage.textContent = "No comments yet for this thread.";
         commentsContainer.appendChild(noCommentsMessage);
     }
 
