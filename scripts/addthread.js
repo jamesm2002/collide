@@ -1,4 +1,3 @@
-// adds text thread
 async function add_text(serverid, userid) {
     console.log("Adding text thread...");
     const threadBody = document.getElementById('threadBody').value.toString();
@@ -17,9 +16,11 @@ async function add_text(serverid, userid) {
         });
 
         if (response.ok) {
-            alert("Text thread added successfully.");
-            location.reload();
-            closePopup();
+           
+            const successMessage = document.getElementById('successMessage');
+            successMessage.style.display = 'block';
+
+            setTimeout(closePopup, 2000);
         } else {
             console.error("Failed to add text thread.");
         }
@@ -29,16 +30,18 @@ async function add_text(serverid, userid) {
 }
 
 
-// function to add images
-async function add_image(serverid, userid) {
+
+  // function to add images 
+  async function add_image(serverid, userid) {
     const fileInput = document.getElementById('file_input');
-    const file = fileInput.files[0];
+    const file = fileInput.files[0]; // Get the selected file
 
     if (file) {
         console.log("Adding image thread...");
 
         const threadBody = document.getElementById('imageBody').value.toString();
 
+        // Create FormData object to send data to the server
         const formData = new FormData();
         formData.append('title', 'Your Title');
         formData.append('body', threadBody);
@@ -47,15 +50,17 @@ async function add_image(serverid, userid) {
         formData.append('creatorId', userid);
 
         try {
+            // Send POST request to the server
             const response = await fetch("http://softboxcollide.glitch.me/add_image_thread", {
                 method: "POST",
                 mode: "cors",
                 body: formData
             });
 
+            // Check if the request was successful
             if (response.ok) {
-                alert("Image thread added successfully.");
-                location.reload();
+                console.log("Image added successfully.");
+                //document.addEventListener('DOMContentLoaded', print_thread(thread, threadPostsContainer));
             } else {
                 console.error("Failed to add image.");
             }
