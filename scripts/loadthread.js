@@ -142,18 +142,23 @@ async function print_thread(thread, container) {
 
     // Append post body container to post div
     postDiv.appendChild(postBodyContainer);
-    
-    const deleteButton = document.createElement('button');
-    deleteButton.textContent = 'Delete';
-    deleteButton.classList.add('delete-button');
-    deleteButton.addEventListener('click', async () => {
-        // Call function to delete the thread
-        await delete_thread(thread_value.threadId);
-        // Remove the post from the container after deletion
-        postDiv.remove();
-    });
-    postDiv.appendChild(deleteButton);
 
+    // logic for delete button
+    const loggedInUserId = parseInt(localStorage.getItem("userId")); 
+    const threadUserId = thread_value.userId; // Assuming thread_value.userId is also a string
+
+    if (loggedInUserId === threadUserId) {
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Delete';
+        deleteButton.classList.add('delete-button');
+        deleteButton.addEventListener('click', async () => {
+            await delete_thread(thread_value.threadId);
+            postDiv.remove();
+        });
+        postDiv.appendChild(deleteButton);
+    }
+
+    // creates different threads based on types
     if (thread_value.threadtype === 'Image') {
         const imageContainer = document.createElement('div');
         imageContainer.classList.add('image-container');

@@ -21,14 +21,11 @@
             return decodeURIComponent(results[2].replace(/\+/g, ' '));
         }
 
-        document.addEventListener('DOMContentLoaded', function () {
-            serverId = getParameterByName('serverId');
-            console.log("server ID:", serverId);
-        });
 
         document.addEventListener('DOMContentLoaded', () => {
             print_threads(serverId);
         });
+
     </script>
 </head>
 <div class="hero">
@@ -78,11 +75,11 @@
                             <input type="file" id="file_input"><br><br>
                         </div>
                         <!-- all types of buttons needed for uploading-->
-                        <button type="button" id="submitText" onclick="add_text(serverId, 1)"
+                        <button type="button" id="submitText" onclick="add_text(serverId, userId)"
                             style="display: block;">Submit Text</button>
-                        <button type="button" id="submitDocument" onclick="create_document(serverId, 1)"
+                        <button type="button" id="submitDocument" onclick="create_document(serverId, userId)"
                             style="display: none;">Submit Document</button>
-                        <button type="button" id="submitImage" onclick="add_image(serverId, 1)"
+                        <button type="button" id="submitImage" onclick="add_image(serverId, userId)"
                             style="display: none;">Submit Image</button>
                         <button type="button" onclick="closePopup()">Close</button>
                     </div>
@@ -197,10 +194,12 @@
         </div>
     </div>
 
+    <script src = 'scripts/addmember.js'></script>
     <div class="wrapper" id="settings">
         <div class="inner-margins">
             <label>Add members:</label>
-            <input type="textbox" value="" />
+            <input id="emailInput" type="textbox" value="" />
+            <button onclick="add_member(serverId)">Add Member</button>
             <br>
             <br>
             <br>
@@ -282,7 +281,6 @@
     </body>
 </html>
 
-<script src="scripts/textpost.js"></script>
 <script src="scripts/creategroup.js"></script>
 <script src="scripts/loadthread.js"></script>
 <script src="scripts/loadserver.js"></script>

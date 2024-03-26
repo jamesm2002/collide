@@ -6,7 +6,7 @@ async function view_user_servers(userid) {
 
   
     const formData = new FormData();
-    formData.append('userid', userid); 
+    formData.append('userId', userid); 
   
     const response = await fetch("https://softboxcollide.glitch.me/get_all_servers_with_user", {
       method: "POST",
@@ -19,3 +19,5 @@ async function view_user_servers(userid) {
     console.log(result)
     return result;
   }
+
+  
