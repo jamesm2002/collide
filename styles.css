@@ -231,7 +231,6 @@ input[type="submit"]:hover {
 }
 
 .post-container {
-    border: 1px solid #ccc; /* Light outline */
     padding: 10px; /* Add some padding for spacing */
     margin-bottom: 20px; /* Add margin between posts */
 }
@@ -240,6 +239,8 @@ input[type="submit"]:hover {
     padding: 10px; /* Add padding to the post body container */
     margin-left: 20px; /* Add indentation to the post body */
     min-height: 3em; /* Minimum height for three lines of content */
+    min-width: 500px; 
+    width: auto;
 }
 
 .allpost {
@@ -1115,4 +1116,15 @@ sectionlevel {
     text-align: left;
     color: #333;
     padding-left: 75px;
+}
+
+.comment-input {
+    width: calc(100% - 80px);
+    margin-right: 10px;
+    box-sizing: border-box; 
+}
+
+/* Style for the comment button */
+.comment-button {
+    width: 70px; 
 }
