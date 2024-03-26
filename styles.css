@@ -128,8 +128,7 @@ nav ul li svg {
 }
 
 
-.sub-menu-link:hover span {
-}
+.sub-menu-link:hover span {}
 
 .sub-menu-link:hover p {
     font-weight: 600;
@@ -204,11 +203,6 @@ label {
     margin-bottom: 10px;
 }
 
-.ageCheckBox {
-    font-family: 'Poppins', sans-serif;
-    font-size: 12px;
-}
-
 input[type="radio"] {
     margin-right: 5px;
 }
@@ -236,10 +230,21 @@ input[type="submit"]:hover {
     overflow: hidden;
 }
 
+.post-container {
+    border: 1px solid #ccc; /* Light outline */
+    padding: 10px; /* Add some padding for spacing */
+    margin-bottom: 20px; /* Add margin between posts */
+}
+.post-body-container {
+    border: 1px solid #dddddde2; /* Light outline for post body */
+    padding: 10px; /* Add padding to the post body container */
+    margin-left: 20px; /* Add indentation to the post body */
+    min-height: 3em; /* Minimum height for three lines of content */
+}
 
 .allpost {
     margin-top: 75px;
-    display: none;
+    display: flex;
 }
 
 .user-info {
@@ -278,8 +283,10 @@ input[type="submit"]:hover {
 }
 
 .like-comment {
-    display: inline-flex; /* Change from flex to inline-flex */
-    align-items: center; /* Align items vertically in the center */
+    display: inline-flex;
+    /* Change from flex to inline-flex */
+    align-items: center;
+    /* Align items vertically in the center */
 }
 
 .like-comment button {
@@ -290,12 +297,15 @@ input[type="submit"]:hover {
 }
 
 .like-comment .author {
-    margin-left: 10px; /* Add some left margin for spacing */
+    margin-left: 10px;
+    /* Add some left margin for spacing */
 }
 
 .like-comment .author {
-    margin-left: auto; /* This will push the .author element to the right edge */
-    margin-right: 10px; /* Adjust the margin as needed for spacing */
+    margin-left: auto;
+    /* This will push the .author element to the right edge */
+    margin-right: 10px;
+    /* Adjust the margin as needed for spacing */
 }
 
 
@@ -319,7 +329,7 @@ input[type="submit"]:hover {
 }
 
 .comment-btn:hover {
-    text-decoration: underline; 
+    text-decoration: underline;
 }
 
 
@@ -366,13 +376,15 @@ input[type="submit"]:hover {
     backdrop-filter: blur(5px);
     display: flex;
     justify-content: space-between;
-    
+
     flex-direction: column;
     transition: width 0.5s;
-    z-index: 2; /* Set a higher z-index value for the side nav */
+    z-index: 2;
+    /* Set a higher z-index value for the side nav */
     object-fit: cover;
 }
-.side-nav img{
+
+.side-nav img {
     object-fit: cover;
 }
 
@@ -431,7 +443,7 @@ ul li p {
     white-space: nowrap;
 }
 
-.rightsec{
+.rightsec {
     position: fixed;
     top: 17px;
     right: 14%;
@@ -487,20 +499,6 @@ svg {
     background: rgba(255, 255, 255, 0.9);
     justify-content: center;
     align-items: center;
-    overflow: auto; 
-}
-
-.post-container {
-    border: 1px solid #ccc; /* Light outline */
-    padding: 10px; /* Add some padding for spacing */
-    margin-bottom: 20px; /* Add margin between posts */
-}
-
-.post-body-container {
-    border: 1px solid #dddddde2; /* Light outline for post body */
-    padding: 10px; /* Add padding to the post body container */
-    margin-left: 20px; /* Add indentation to the post body */
-    min-height: 3em; /* Minimum height for three lines of content */
 }
 
 .createpost-content {
@@ -548,19 +546,23 @@ nav ul li .createserver {
     height: 100px;
     border-radius: 50%;
     margin-top: -20px;
-    border: 2px solid black; /* Black border around the circular image */
-    margin-right: 10px; /* Adjust as needed for spacing between icon and group name */
+    border: 2px solid black;
+    /* Black border around the circular image */
+    margin-right: 10px;
+    /* Adjust as needed for spacing between icon and group name */
 }
 
 .titlebar {
     width: 100%;
     background-color: white;
-    margin-top: -20px; /* Adjust the negative margin as needed for the desired overlap */
-    z-index: 1; /* Set a higher z-index to make sure the titlebar is displayed above the image */
-    padding-right: 40% ;
+    margin-top: -20px;
+    /* Adjust the negative margin as needed for the desired overlap */
+    z-index: 1;
+    /* Set a higher z-index to make sure the titlebar is displayed above the image */
+    padding-right: 40%;
     display: flex;
     align-items: center;
-    justify-content:center;
+    justify-content: center;
     position: relative;
     flex-direction: row;
 }
@@ -569,16 +571,18 @@ nav ul li .createserver {
     display: flex;
     align-items: center;
 }
-.headers {
-}
+
+.headers {}
 
 .titlebar p {
-    font-size: 50px; /* Adjust the font size as needed */
-    margin-top: -10px; /* Remove default margin */
+    font-size: 50px;
+    /* Adjust the font size as needed */
+    margin-top: -10px;
+    /* Remove default margin */
     position: relative;
 }
 
-.group-navbar{
+.group-navbar {
     display: flex;
     align-items: center;
     flex-direction: row;
@@ -587,23 +591,21 @@ nav ul li .createserver {
     right: 10px;
 }
 
-.group-navbar h4{
+.group-navbar h4 {
     margin: 10px;
     padding-right: 105px;
     padding-left: 1px;
     text-align: right;
 }
 
-.group-navbar h3{
+.group-navbar h3 {}
 
-    
-}
-
-.btop{
+.btop {
     justify-content: center;
     align-items: center;
     position: absolute;
 }
+
 .login {
     margin: 0;
     padding: 0;
@@ -621,7 +623,7 @@ nav ul li .createserver {
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-	width: 450px;
+    width: 450px;
 }
 
 h2 {
@@ -653,7 +655,7 @@ label {
     border: none;
     border-radius: 24px;
     cursor: pointer;
-	margin : 0px 100px 0px 100px;
+    margin: 0px 100px 0px 100px;
 }
 
 
@@ -684,7 +686,8 @@ sectionlevel {
     flex: 1;
     padding: 20px;
     box-sizing: border-box;
-    order: 1; /* Set the order to 1 to place it on the left */
+    order: 1;
+    /* Set the order to 1 to place it on the left */
 }
 
 .comment {
@@ -704,13 +707,15 @@ sectionlevel {
 
 #bimage-container {
     flex: 1;
-    order: 1; /* Set the order to 1 to place it on the left */
+    order: 1;
+    /* Set the order to 1 to place it on the left */
 }
 
 #bimage {
     width: 100%;
     height: auto;
-    max-height: 50%; /* Set a maximum height for the image */
+    max-height: 50%;
+    /* Set a maximum height for the image */
     display: block;
     margin: 0 auto;
     border-radius: 0px;
@@ -720,8 +725,10 @@ sectionlevel {
     flex: 1;
     padding: 20px;
     box-sizing: border-box;
-    order: 2; /* Set the order to 2 to place it on the right */
-    background-color: #fff; /* Set background color for the comments container */
+    order: 2;
+    /* Set the order to 2 to place it on the right */
+    background-color: #fff;
+    /* Set background color for the comments container */
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     display: flex;
@@ -730,7 +737,8 @@ sectionlevel {
 
 .bcomment {
     margin-bottom: 10px;
-    margin-top: 10px; /* Set a fixed distance between comments */
+    margin-top: 10px;
+    /* Set a fixed distance between comments */
 }
 
 
@@ -738,12 +746,12 @@ sectionlevel {
     font-weight: bold;
 }
 
-.container .top{
+.container .top {
     position: relative;
     border-bottom: 1px solid #eee;
 }
 
-.top .likes__count{
+.top .likes__count {
     position: absolute;
     top: 0;
     left: 0;
@@ -757,19 +765,19 @@ sectionlevel {
     color: white;
 }
 
-.likes__count small{
+.likes__count small {
     font-size: 20px;
     margin-left: 5px;
 }
 
-.form__info{
+.form__info {
     justify-content: center;
     text-align: center;
 }
-.centerman{
-}
 
-.form__info input{
+.centerman {}
+
+.form__info input {
     border: none;
     background: transparent;
     width: 70%;
@@ -779,10 +787,11 @@ sectionlevel {
     outline: none;
 }
 
-.form__info input::placeholder{
+.form__info input::placeholder {
     color: #ddd;
 }
-.commentform{
+
+.commentform {
     display: grid;
     width: 100%;
     height: 80px;
@@ -793,17 +802,23 @@ sectionlevel {
 
 /* COMMENTS */
 .comments__container {
-    width: 800px; /* Adjust this to fit your layout */
-    max-height: 800px; /* Or whatever height you prefer */
-    margin: auto; /* This will center the container in its parent if the parent is also flex */
+    width: 800px;
+    /* Adjust this to fit your layout */
+    max-height: 800px;
+    /* Or whatever height you prefer */
+    margin: auto;
+    /* This will center the container in its parent if the parent is also flex */
     display: flex;
     height: 775px;
-    flex-direction: column; /* Stack the children vertically */
-    align-items: center; /* Align children horizontally in the center */
-    overflow-y: auto; /* Keep the scrollbar if needed */
+    flex-direction: column;
+    /* Stack the children vertically */
+    align-items: center;
+    /* Align children horizontally in the center */
+    overflow-y: auto;
+    /* Keep the scrollbar if needed */
 }
 
-.comment__card{
+.comment__card {
     width: 100%;
     height: 80px;
     display: grid;
@@ -814,67 +829,81 @@ sectionlevel {
 
 .comments__container {
     display: flex;
-    flex-direction: column-reverse; /* This makes elements stack from the bottom up */
-    align-items: flex-start; /* Align items to the start of the flex container (top in this case) */
-    max-height: 800px; /* Set a max-height to your preference */
-    overflow-y: auto; /* Adds a scrollbar if content overflows */
-    margin-bottom: auto; /* This pushes the content to the bottom if there's space available */
+    flex-direction: column-reverse;
+    /* This makes elements stack from the bottom up */
+    align-items: flex-start;
+    /* Align items to the start of the flex container (top in this case) */
+    max-height: 800px;
+    /* Set a max-height to your preference */
+    overflow-y: auto;
+    /* Adds a scrollbar if content overflows */
+    margin-bottom: auto;
+    /* This pushes the content to the bottom if there's space available */
 }
 
-.comment__card .pic{
-    background-color: #48cae4;
-    border-radius: 50%;
-    margin: 10%;
-    font-size: 25px;
-    color: white;
-    text-transform: uppercase;
-    justify-content: center;
+.ageCheckBox {
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+}
+
+.comment-card .pic {
+    display: flex;
+    justify-content: start;
     align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
 }
 
-.comment__info{
+.comment__info {
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
-.comment__info .nickname{
+.comment__info .nickname {
     color: #aaa;
 }
 
-.comment__info .comment{
+.comment__info .comment {
     margin: 5px 0;
 }
 
 .submit__btn {
     padding: 10px 20px;
-    background-color: #48cae4; /* A pleasant blue shade, but feel free to choose your own color */
+    background-color: #48cae4;
+    /* A pleasant blue shade, but feel free to choose your own color */
     border: none;
-    border-radius: 5px; /* Rounded corners */
+    border-radius: 5px;
+    /* Rounded corners */
     color: white;
     font-size: 18px;
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s ease;
-  }
-  
-  .submit__btn:hover {
-    background-color: #00b4d8; /* A slightly lighter blue for hover effect */
-  }
-  
-  .submit__btn:active {
-    transform: scale(0.98); /* Slightly scale down the button when clicked */
-  }
+}
+
+.submit__btn:hover {
+    background-color: #00b4d8;
+    /* A slightly lighter blue for hover effect */
+}
+
+.submit__btn:active {
+    transform: scale(0.98);
+    /* Slightly scale down the button when clicked */
+}
 
 .center__display {
     flex: 1;
     position: relative;
 
 }
+
 .post-image1 {
-    width: auto; /* This will make the image responsive */
+    width: auto;
+    /* This will make the image responsive */
     max-height: 500px;
-    margin: 10px 0; /* Adjusted margin for top and bottom spacing */
+    margin: 10px 0;
+    /* Adjusted margin for top and bottom spacing */
 }
 
 
@@ -882,17 +911,22 @@ sectionlevel {
     border-bottom: 1px solid #eee;
 }
 
-.rightsidecontent{
+.rightsidecontent {
     background-color: white;
-        /* Adjust the width, padding, or margin as needed */
-        flex: 2; /* Takes up 1 portion of the space */
-       border-radius: 50px;
+    /* Adjust the width, padding, or margin as needed */
+    flex: 2;
+    /* Takes up 1 portion of the space */
+    border-radius: 50px;
 }
+
 .Chat {
     background-color: white;
-    display: flex; /* Align children side by side */
-    align-items: flex-start; /* Align children to the top */
-    justify-content: space-between; /* Put some space between the elements */
+    display: flex;
+    /* Align children side by side */
+    align-items: flex-start;
+    /* Align children to the top */
+    justify-content: space-between;
+    /* Put some space between the elements */
     margin: 100px;
     border-style: solid;
     border-color: #c6c4c4;
@@ -900,30 +934,66 @@ sectionlevel {
     border-width: 5px;
 }
 
-.image-container{
-    text-align: center;
+.image-container {
+    text-align: left;
 }
 
-.rightsidecontent p{
-    text-align: center;
+.image-container svg {
+    width: 40px;
+    height: 40px;
 }
-.allPost{
+
+.rightsidecontent p {
+    text-align: left;
+}
+
+.allPost {
     display: none;
 }
+
 .chat-Container {
-    display: block;
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
-    margin: 0; /* Remove default margin */
-}
-.chatcontainer{
-justify-content: center; /* Center horizontally */
-align-items: center; /* Center vertically */
-margin: 0; /* Remove default margin */
+    display: none;
+    justify-content: center;
+    /* Center horizontally */
+    align-items: center;
+    /* Center vertically */
+    margin: 0;
+    /* Remove default margin */
 }
 
-.Chat p{
-    margin: 50px;
+.chatcontainer {
+    justify-content: center;
+    /* Center horizontally */
+    align-items: center;
+    /* Center vertically */
+    margin: 0;
+    /* Remove default margin */
+}
+
+.Chat p {
+    margin: 0px;
+    min-width: 200px;
+    max-width: 500px;
+    width: auto;
+    min-height: 32px;
+    max-height: 64px;
+    height: auto;
+}
+
+.comment-card {
+    margin-bottom: 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    border-radius: 12px;
+    box-sizing: border-box;
+    padding: 12px;
+    box-shadow: -5px 5px 10px #f2f2f2,
+        5px -5px 10px #ffffff;
+    min-width: 200px;
+    max-width: 500px;
+    width: auto;
+
 }
 
 .grouppage-container {
@@ -939,7 +1009,8 @@ margin: 0; /* Remove default margin */
     box-shadow: 0 0 10px #ccc;
     border-radius: 5px;
     background-color: #f9f9f9;
-    max-width: 500px; /* Adjust as necessary */
+    max-width: 500px;
+    /* Adjust as necessary */
     border-radius: 30px;
 }
 
@@ -967,8 +1038,10 @@ margin: 0; /* Remove default margin */
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    display: block; /* Ensure it's a block-level element */
-    width: 100%; /* Full-width button */
+    display: block;
+    /* Ensure it's a block-level element */
+    width: 100%;
+    /* Full-width button */
 }
 
 .creategroupbutton:hover {
@@ -979,19 +1052,19 @@ margin: 0; /* Remove default margin */
 
 .avatar-xl img {
     width: 250px;
-    padding-left:50px;
-    padding-top:50px;
+    padding-left: 50px;
+    padding-top: 50px;
     padding-bottom: 50px;
-    float:left;
+    float: left;
 }
 
 .prof {
     display: grid;
-    align-items: center; 
+    align-items: center;
     grid-template-columns: 1fr 1fr 1fr;
     column-gap: 5px;
-    padding-left:100px;
-    padding-top:100px;
+    padding-left: 100px;
+    padding-top: 100px;
 }
 
 .grid {
@@ -1002,9 +1075,9 @@ margin: 0; /* Remove default margin */
 
 .settingHeadings {
     display: grid;
-    align-items: center; 
+    align-items: center;
     grid-template-columns: 1fr 1fr 1fr;
-    font-size:20px;
+    font-size: 20px;
 }
 
 .form-control {
@@ -1030,7 +1103,7 @@ margin: 0; /* Remove default margin */
     margin: 80px auto 0 auto;
     box-shadow: 0px 6px 16px rgba(98, 100, 108, 0.5);
     background-color: #ffffff;
-  }
+}
 
 .inner-margins {
     padding-left: 75px;

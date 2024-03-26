@@ -1,8 +1,9 @@
+const userId = localStorage.getItem("userId");
 //searches for all servers
 async function view_servers() {
   
     const formData = new FormData();
-    formData.append('userId', 1); 
+    formData.append('userId', userId); 
   
     const response = await fetch("https://softboxcollide.glitch.me/get_all_servers_with_user", {
       method: "POST",
@@ -14,7 +15,7 @@ async function view_servers() {
     return result;
   }
 
-  
+
 // returns an array of all values for a thread
 async function view_server_details(serverId) {
 
@@ -66,18 +67,25 @@ async function printAllServers() {
 
             // Check if a server has an associated page or document link
             const link = document.createElement('a');
-            link.textContent = `${server.name}${serverId}`;
+            link.textContent = `${server.name}`;
             link.href = `server.html?serverId=${serverId}`;
             nameParagraph.appendChild(link); // Append link to the postDiv directly
+            
+            link.addEventListener('click', function() {
+                localStorage.setItem("serverId", serverId);
+            });
             
             postDiv.appendChild(nameParagraph);
             postDiv.appendChild(br);
             sidenavContainer.appendChild(postDiv);
+            
         }
     } else {
         console.log("No servers found.");
     }
 }
+
+
 
 document.addEventListener('DOMContentLoaded', printAllServers);
 

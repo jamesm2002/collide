@@ -1,7 +1,6 @@
 // searches for all threads in a server
 async function view_threads(serverid) {
 
-    console.log("Got here");
 
   
     const formData = new FormData();
@@ -15,14 +14,13 @@ async function view_threads(serverid) {
   
 
     const result = await response.json();
-    console.log(result)
+
     return result;
   }
 
 // returns an array of all values for a thread
 async function view_thread(threadId) {
 
-    console.log("Got here");
   
     const formData = new FormData();
     formData.append('threadId', threadId);
@@ -39,10 +37,8 @@ async function view_thread(threadId) {
     let threadType;
     try {
         threadType = result[0].threadtype;
-        console.log(threadType);
     } catch {
         threadType = result.threadPart[0].threadtype;
-        console.log(threadType);
     }
     
     let thread;
@@ -92,7 +88,7 @@ async function view_thread(threadId) {
             };
             break;
     }
-    console.log(thread)
+
     return thread;
 }
 
@@ -101,18 +97,14 @@ async function view_thread(threadId) {
 // prints all threads 
 async function print_threads(serverid) {
     const threadsResponse = await view_threads(serverid);
-    console.log(threadsResponse)
     const threadPostsContainer = document.getElementById('threadPostsContainer');
 
     if (threadsResponse && threadsResponse.length > 0) {
-        console.log("Printing posts of all threads in server 1:");
         for (let i = threadsResponse.length - 1; i >= 0; i--) {
             const thread = threadsResponse[i];
-            console.log('thread reponse:', threadsResponse[i])
             print_thread(thread, threadPostsContainer);
         }
     } else {
-        console.log("No threads found in server."); // error message
     }
 };
 
