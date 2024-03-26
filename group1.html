@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="styles.css">
     <title>Collide chatpage</title>
 </head>
-<script src="scripts/javascript.js"></script>
 <div class="hero">
     <nav>
         <img onclick="document.location='homepage.html'" src="images/collideText2.png" class="logo">
@@ -94,7 +93,7 @@
                     <p>Settings & Privacy</p>
                     <span>></span>
                 </a>
-                <a href="login.htm" class="sub-menu-link">
+                <a href="login.html" class="sub-menu-link">
                     <img src="images/logout.png">
                     <p>Logout</p>
                     <span>></span>
@@ -125,11 +124,30 @@
                 <!---   <li onclick="document.location='group3.html'"><img src="images/group3.jpg">
                     <p>Group 3</p>
                 </li> -->
-                <li onclick=openserverPopup()><img src="images/plus.png">
+                <li onclick="openserverPopup()"><img src="images/plus.png">
                     <p>Add</p>
                 </li>
             </ul>
 
+        </div>
+    </div>
+    <div class="createserver-container" id="serverContainer">
+        <div class="popup-content">
+            <div class="grouppage-container">
+                <div class="create-form-container">
+                    <button type="button" class="cancelbutton" onclick="closeserverPopup()">Cancel</button>
+
+                    <form id="createnewgroup" class="create-group-form">
+                        <h2>Create Group</h2>
+                        <div class="form-group">
+                            <label for="groupName">Group Name:</label>
+                            <textarea id="name" name="name" ></textarea>
+                        </div>
+                        <p class="creategroupbutton" id="serverId" name="serverId" onclick="addServer()"> Create
+                            Group</p>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
     <div class="headers">
@@ -157,10 +175,7 @@
             <br>
             <br>
             <br>
-            <label>Delete Group</label>
-            <form>
-                <button onclick="deleteserver(7)" value="          Delete         "></button>
-            </form>
+            <label onclick="deleteserver()" >Delete Group</label>
         </div>
     </div>
     </div>
@@ -173,6 +188,7 @@
                 <div class="image-container">
                     <div class="center__display">
                         <div class="leftsidecontent">
+                            <div id="commentsContainer"></div>
                             <div class="comments__container center__display">
                                 <!-- <div class="comment__card">
                 <div class="pic center__display">
@@ -194,7 +210,7 @@
                     </div>
                 </div>
             </div> -->
-            <div id="theContainer"></div>
+                
                             </div>
                             <div class="top">
                                 <div class="bcontain">
@@ -269,7 +285,7 @@
         </div>
     </body>
 
-
+    <script src="scripts/javascript.js"></script>
     <script src="scripts/textpost.js"></script>
     <script src="scripts/creategroup.js"></script>
     <script src="scripts/loadthread.js"></script>
@@ -277,4 +293,3 @@
     <script src="scripts/loadComments.js"></script>
     <script src="scripts/deleteserver.js"></script>
     <script src="comment.js"></script>
-

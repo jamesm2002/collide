@@ -204,11 +204,6 @@ label {
     margin-bottom: 10px;
 }
 
-.ageCheckBox {
-    font-family: 'Poppins', sans-serif;
-    font-size: 12px;
-}
-
 input[type="radio"] {
     margin-right: 5px;
 }
@@ -487,20 +482,6 @@ svg {
     background: rgba(255, 255, 255, 0.9);
     justify-content: center;
     align-items: center;
-    overflow: auto; 
-}
-
-.post-container {
-    border: 1px solid #ccc; /* Light outline */
-    padding: 10px; /* Add some padding for spacing */
-    margin-bottom: 20px; /* Add margin between posts */
-}
-
-.post-body-container {
-    border: 1px solid #dddddde2; /* Light outline for post body */
-    padding: 10px; /* Add padding to the post body container */
-    margin-left: 20px; /* Add indentation to the post body */
-    min-height: 3em; /* Minimum height for three lines of content */
 }
 
 .createpost-content {
@@ -821,15 +802,12 @@ sectionlevel {
     margin-bottom: auto; /* This pushes the content to the bottom if there's space available */
 }
 
-.comment__card .pic{
-    background-color: #48cae4;
-    border-radius: 50%;
-    margin: 10%;
-    font-size: 25px;
-    color: white;
-    text-transform: uppercase;
-    justify-content: center;
+.comment-card .pic{
+    display: flex;
+    justify-content: start;
     align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
 }
 
 .comment__info{
@@ -901,11 +879,15 @@ sectionlevel {
 }
 
 .image-container{
-    text-align: center;
+    text-align: left;
 }
 
+.image-container svg{
+    width: 40px;
+    height: 40px;
+}
 .rightsidecontent p{
-    text-align: center;
+    text-align: left;
 }
 .allPost{
     display: none;
@@ -923,7 +905,28 @@ margin: 0; /* Remove default margin */
 }
 
 .Chat p{
-    margin: 50px;
+    margin: 0px;
+    min-width: 200px;
+    max-width: 500px;
+    width: auto;
+    min-height: 32px;
+    max-height: 64px;
+    height: auto;
+}
+.comment-card{
+    margin-bottom: 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    border-radius: 12px;
+    box-sizing: border-box;
+    padding: 12px;
+    box-shadow:  -5px 5px 10px #f2f2f2,
+    5px -5px 10px #ffffff;
+    min-width: 200px;
+    max-width: 500px;
+    width: auto;
+
 }
 
 .grouppage-container {

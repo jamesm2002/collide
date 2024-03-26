@@ -1,5 +1,3 @@
-<!-- index.html -->
-
 <!DOCTYPE html>
 <html lang="en" class="dimmed">
 
@@ -9,7 +7,11 @@
     <link rel="stylesheet" href="styles.css">
     <title>Collide chatpage</title>
     <script src="scripts/javascript.js"></script>
-    <script src="scripts/textpost.js"></script> 
+    <script src="scripts/textpost.js"></script>
+    <script src="scripts/creategroup.js"></script>
+    <script src="scripts/loadthread.js"></script>
+    <script src="scripts/loadserver.js"></script>
+    <script src="scripts/getuserinfo.js"></script>
 </head>
 <div class="hero">
     <nav>
@@ -56,13 +58,15 @@
                     </svg></li>
             </leftsec>
         </ul>
-        <img src="images/profilep.jpg" class="user-pic" onclick="toggleMenu()">
+        <img src="images/profilep.jpg" class="user-pic" onclick="handleUserPicClick()">
 
         <div class="sub-menu-wrap" id="subMenu">
             <div class="sub-menu">
                 <div class="user-info">
                     <img src="images/profilep.jpg">
-                    <h3>Aubrey Jackson</h3>
+                    <h3 id="username">Aubrey Jackson</h3>
+                </div>
+                
                 </div>
                 <hr>
 
@@ -173,5 +177,5 @@
             </div>
         </div>
     </div>
-
+</body>
 </html>
