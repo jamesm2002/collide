@@ -1,11 +1,11 @@
 // searches for all threads in a server
-async function view_threads() {
+async function view_threads(serverid) {
 
     console.log("Got here");
 
   
     const formData = new FormData();
-    formData.append('serverId', 1); 
+    formData.append('serverId', serverid); 
   
     const response = await fetch("https://softboxcollide.glitch.me/get_all_threads_in_server", {
       method: "POST",
@@ -99,8 +99,8 @@ async function view_thread(threadId) {
 
 
 // prints all threads 
-async function print_threads() {
-    const threadsResponse = await view_threads();
+async function print_threads(serverid) {
+    const threadsResponse = await view_threads(serverid);
     console.log(threadsResponse)
     const threadPostsContainer = document.getElementById('threadPostsContainer');
 
@@ -228,11 +228,4 @@ async function delete_thread(threadId) {
         mode: "cors",
         body: formData
     });
-
-    //const result = await response.json();
-    
-    ///return result;
-    
 }
-// prints all threads upon loading
-document.addEventListener('DOMContentLoaded', print_threads);
