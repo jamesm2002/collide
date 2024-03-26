@@ -69,6 +69,12 @@ async function login() {
     
     const result = await response.json();
 
+    // check that email exists in database
+    if (result.code == 'ER_DUP_ENTRY') {
+        alert("An account with this email already exists");
+        return 1;
+    } 
+
     let userId = 0;
     try {
         if (password == result[0].password) {
