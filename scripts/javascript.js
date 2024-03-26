@@ -1,21 +1,77 @@
+userId = localStorage.getItem("userId");
+
+async function getViewServerDetailsAndPrintName(serverId) {
+    // Ensure you have the serverId when you call this function
+    const formData = new FormData();
+    formData.append('serverId', serverId);
+
+    try {
+        const response = await fetch("https://softboxcollide.glitch.me/get_server_by_id", {
+            method: "POST",
+            mode: "cors",
+            body: formData
+        });
+
+        const result = await response.json();
+
+        // Assuming the API returns an array and you're interested in the first item
+        let serverName = "Server name not found";
+        if (Array.isArray(result) && result.length > 0) {
+            serverName = result[0].name; // Access the name of the first server object if it's an array
+        } else if (result.name) {
+            serverName = result.name; // Directly access the name if the result is a single server object
+        }
+
+        // Update the DOM with the fetched server name
+        document.getElementById('serverName').textContent = serverName;
+    } catch (error) {
+        console.error("Error fetching server details:", error);
+        // Handle the error (e.g., show an error message in the UI)
+        document.getElementById('serverName').textContent = "Error loading server name";
+    }
+}
+
+async function getuserinfo() {
+    const userId = localStorage.getItem("userId"); // Ensure 'userId' is retrieved correctly from localStorage
+    const formData = new FormData();
+    formData.append('userId', userId);
+
+    const response = await fetch("https://softboxcollide.glitch.me/get_user_info", {
+        method: "POST",
+        mode: "cors",
+        body: formData
+    });
+
+    const result = await response.json();
+
+    // Assuming the result is an array and you're interested in the first item
+    // If your endpoint always returns a single user object, adjust accordingly.
+    let username = "";
+    if (Array.isArray(result) && result.length > 0) {
+        username = result[0].username; // Access the username of the first object if it's an array
+    } else if (result.username) {
+        username = result.username; // Directly access the username if the result is a single object
+    }
+
+
+    // Update the DOM with the fetched username
+    document.getElementById('username').textContent = username;
+
+    return result; // Return the fetched result
+}
 
 
 function toggleMenu(){
     let subMenu = document.getElementById("subMenu");
     subMenu.classList.toggle("open-menu");
 }
-//function changeStatus() {
-// Get the element with the id "statusSpan"
-//var statusSpan = document.getElementById("statusSpan");
 
-// Check if the current status is "Active" and change it to "Busy"
-//if (statusSpan.textContent.trim() === "Active") {
-//    statusSpan.textContent = "Busy";
-//} else {
-//    // If it's not "Active", change it back to "Active"
-//    statusSpan.textContent = "Active";
-//}
-//}
+
+function handleUserPicClick() {
+    toggleMenu();
+    getuserinfo();
+}
+
 function openserverPopup() {
     document.getElementById("serverContainer").style.display = "flex";
 }
@@ -63,69 +119,4 @@ function changeStatus() {
     }
 }
 
-function toggleSvgColor() {
-    // Select all like buttons
-    const svgButtons = document.querySelectorAll('.like-button');
-
-    // Iterate over each button and attach the click event listener
-    svgButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            // Find the path element within this button
-            const svgPath = this.querySelector('path');
-
-            // Toggle the color
-            const currentColor = svgPath.getAttribute('fill');
-            const newColor = currentColor === 'red' ? 'none' : 'red';
-            svgPath.setAttribute('fill', newColor);
-        });
-    });
-}
-
-// Call the function to attach event listeners
-toggleSvgColor();
-
-
-
-
-function showBackToTopButton() {
-    var button = document.getElementById("backToTopBtn");
-    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-        button.style.display = "block";
-    } else {
-        button.style.display = "none";
-    }
-}
-
-// Scroll to the top when the button is clicked
-function scrollToTop() {
-    document.body.scrollTop = 0; // For Safari
-    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE, and Opera
-}
-
-
-function previewPhoto() {
-    const photoInput = document.getElementById("photoInput");
-    const previewImage = document.getElementById("previewImage");
-
-    // Check if a file is selected
-    if (photoInput.files.length > 0) {
-        const selectedFile = photoInput.files[0];
-
-        // Validate file type (optional)
-        const validImageTypes = ["image/jpeg", "image/png", "image/gif"];
-        if (validImageTypes.includes(selectedFile.type)) {
-            // Read the file and display a preview
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                previewImage.src = e.target.result;
-                previewImage.style.display = "block";
-            };
-            reader.readAsDataURL(selectedFile);
-        } else {
-            alert("Invalid file type. Please select a valid image file.");
-        }
-    } else {
-        alert("Please select a file before uploading.");
-    }
-}
 

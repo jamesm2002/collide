@@ -13,8 +13,26 @@
     <script src="scripts/loadthread.js"></script>
     <script src="scripts/loadserver.js"></script>
     <script src="scripts/get_user_servers.js"></script>
+    <script src="scripts/threadcomment.js"></script>
     <script>
-        view_user_servers(1);
+        document.addEventListener('DOMContentLoaded', async function() {
+        try {
+            
+            // Call list_servers function to fetch server IDs
+            const serverIds = await list_servers(userId);
+            
+            // Use the server IDs as needed
+            console.log("Server IDs:", serverIds);
+
+            for (const serverId of serverIds) {
+            await print_threads(serverId);
+        }
+            
+            // You can perform further actions with the server IDs here
+        } catch (error) {
+            console.error("Error:", error);
+        }
+    });
     </script>
 </head>
 <div class="hero">
@@ -28,11 +46,10 @@
                         stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" />
                     <path d="M15 18H9" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" />
                 </svg></li>
-            
             <!--options to create new posts-->
             <createpost>
-                <script src = 'scripts/popupmenu.js'></script>
-                <script src = 'quill/newquill.js'></script>
+                <script src='scripts/popupmenu.js'></script>
+                <script src='quill/newquill.js'></script>
                 <script src="scripts/addthread.js"></script>
                 <div class="createpost-container" id="popupContainer">
                     <div class="popup-content">
@@ -54,7 +71,8 @@
                             <label for="documentName">Document Name:</label><br>
                             <input type="text" id="documentName" name="documentName" size="30"><br><br>
                             <label for="threadBodyDocument">Thread Body for Document:</label><br>
-                            <textarea id="threadBodyDocument" name="threadBodyDocument" rows="4" cols="50"></textarea><br>
+                            <textarea id="threadBodyDocument" name="threadBodyDocument" rows="4"
+                                cols="50"></textarea><br>
                         </div>
 
                         <!-- image body and file -->
@@ -65,60 +83,24 @@
                             <input type="file" id="file_input"><br><br>
                         </div>
                         <!-- all types of buttons needed for uploading-->>
-                        <button type="button" id="submitText" onclick="add_text()" style="display: block;">Submit Text</button> 
-                        <button type="button" id="submitDocument" onclick="create_document()" style="display: none;">Submit Document</button>
-                        <button type="button" id="submitImage" onclick="add_image()" style="display: none;">Submit Image</button>
+                        <button type="button" id="submitText" onclick="add_text()" style="display: block;">Submit
+                            Text</button>
+                        <button type="button" id="submitDocument" onclick="create_document()"
+                            style="display: none;">Submit Document</button>
+                        <button type="button" id="submitImage" onclick="add_image()" style="display: none;">Submit
+                            Image</button>
                         <button type="button" onclick="closePopup()">Close</button>
                     </div>
                 </div>
             </createpost>
-                <div id="successMessage" style="display: none;">Submission successful!</div>
-                
-                <li><svg width="800px" height="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
-                        onclick="openPopup()">
-                        <path d="M15 12L12 12M12 12L9 12M12 12L12 9M12 12L12 15" stroke="#1C274C" stroke-width="1.5"
-                            stroke-linecap="round" />
-                        <path
-                            d="M7 3.33782C8.47087 2.48697 10.1786 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 10.1786 2.48697 8.47087 3.33782 7"
-                            stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" />
-                    </svg></li>
-            </createpost>
-            <li>
-                <div class="search-box">
-                    <div class="row">
-                        <input type="text" id="input-box" placeholder="Search anything">
-                        <svg width="800px" height="800px" viewBox="0 0 24 24" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path d="M18.5 18.5L22 22" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" />
-                            <path
-                                d="M6.75 3.27093C8.14732 2.46262 9.76964 2 11.5 2C16.7467 2 21 6.25329 21 11.5C21 16.7467 16.7467 21 11.5 21C6.25329 21 2 16.7467 2 11.5C2 9.76964 2.46262 8.14732 3.27093 6.75"
-                                stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" />
-                        </svg>
-                    </div>
-                    <div class="result-box">
-                    </div>
-
-                </div>
-            </li>
-            <leftsec>
-                <li><svg width="800px" height="800px" viewBox="0 0 24 24" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M9.10745 2.67414C9.98414 2.24187 10.9649 2 12 2C15.7274 2 18.7491 5.13623 18.7491 9.00497V9.70957C18.7491 10.5552 18.9903 11.3818 19.4422 12.0854L20.5496 13.8095C21.5612 15.3843 20.789 17.5249 19.0296 18.0229C14.4273 19.3257 9.57274 19.3257 4.97036 18.0229C3.21105 17.5249 2.43882 15.3843 3.45036 13.8095L4.5578 12.0854C5.00972 11.3818 5.25087 10.5552 5.25087 9.70957V9.00497C5.25087 7.93058 5.48391 6.91269 5.90039 6.00277"
-                            stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" />
-                        <path
-                            d="M7.5 19C8.15503 20.7478 9.92246 22 12 22C12.2445 22 12.4847 21.9827 12.7192 21.9492M16.5 19C16.2329 19.7126 15.781 20.3428 15.1985 20.8393"
-                            stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" />
-                    </svg></li>
-            </leftsec>
-        </ul>
-        <img src="images/profilep.jpg" class="user-pic" onclick="toggleMenu()">
+            <svg onclick="document.location='calendar.html'" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M3 9H21M7 3V5M17 3V5M7 13H17V17H7V13ZM6.2 21H17.8C18.9201 21 19.4802 21 19.908 20.782C20.2843 20.5903 20.5903 20.2843 20.782 19.908C21 19.4802 21 18.9201 21 17.8V8.2C21 7.07989 21 6.51984 20.782 6.09202C20.5903 5.71569 20.2843 5.40973 19.908 5.21799C19.4802 5 18.9201 5 17.8 5H6.2C5.0799 5 4.51984 5 4.09202 5.21799C3.71569 5.40973 3.40973 5.71569 3.21799 6.09202C3 6.51984 3 7.07989 3 8.2V17.8C3 18.9201 3 19.4802 3.21799 19.908C3.40973 20.2843 3.71569 20.5903 4.09202 20.782C4.51984 21 5.07989 21 6.2 21Z" stroke="#000000" stroke-width="1.44" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>        </ul>
+        <img src="images/profilep.jpg" class="user-pic" onclick="handleUserPicClick()">
 
         <div class="sub-menu-wrap" id="subMenu">
             <div class="sub-menu">
                 <div class="user-info">
                     <img src="images/profilep.jpg">
-                    <h3>Aubrey Jackson</h3>
+                    <h3 id="username"></h3>
                 </div>
                 <hr>
 
@@ -126,24 +108,19 @@
                     <img onclick="changeStatus()" src="images/profile.png">
                     <p onclick="changeStatus()">Status</p>
 
-
                     <span onclick="changeStatus()" id="statusSpan">Active</span>
                 </a>
-                <a href="#" class="sub-menu-link">
+                <a href="#" class="sub-menu-link" onclick="document.location='settings.html'">
                     <img src="images/setting.png">
                     <p>Settings & Privacy</p>
                     <span>></span>
                 </a>
-                <a href="#" class="sub-menu-link">
-                    <img src="images/help.png">
-                    <p>Light Mode</p>
-                    <span>></span>
-                </a>
-                <a href="login.htm" class="sub-menu-link">
+                <a href="login.html" class="sub-menu-link">
                     <img src="images/logout.png">
-                    <p >Logout</p>
+                    <p>Logout</p>
                     <span>></span>
                 </a>
+
             </div>
         </div>
 
@@ -159,12 +136,6 @@
                 </div>
             </div>
             <ul>
-                <li onclick="document.location='group1.html'">
-                    <p>Group 1</p>
-                </li>
-                <li onclick="document.location='group2.html'">
-                    <p>Group 2</p>
-                </li>
                 <div id="sidenavContainer"></div>
                 <!---   <li onclick="document.location='group3.html'"><img src="images/group3.jpg">
                     <p>Group 3</p>
@@ -186,7 +157,7 @@
                         <h2>Create Group</h2>
                         <div class="form-group">
                             <label for="groupName">Group Name:</label>
-                            <textarea id="name" name="name" ></textarea>
+                            <textarea id="name" name="name"></textarea>
                         </div>
                         <p class="creategroupbutton" id="serverId" name="serverId" onclick="addServer()"> Create
                             Group</p>
@@ -195,140 +166,18 @@
             </div>
         </div>
     </div>
-    <div id="1">
-        <div class="post-container" onclick="document.location='chatpage.html'">
-            <div class="user-info">
-                <img src="images/profilep2.jpg" alt="User Profile Picture">
-                <span class="username">universal post</span>
-            </div>
-            <img class="post-image" src="images/post1.jpg" alt="Post Image">
-            <div class="post-details">
-                <div class="like-comment">
-                    <button>
-                        <svg id="svgButton" width="800px" height="800px" viewBox="0 0 24 24" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <g id="SVGRepo_bgCarrier" stroke-width="0" />
-                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" />
-                            <g id="SVGRepo_iconCarrier">
-                                <path
-                                    d="M15.7 4C18.87 4 21 6.98 21 9.76C21 15.39 12.16 20 12 20C11.84 20 3 15.39 3 9.76C3 6.98 5.13 4 8.3 4C10.12 4 11.31 4.91 12 5.71C12.69 4.91 13.88 4 15.7 4Z"
-                                    stroke="#000000" stroke-width="1.44" stroke-linecap="round"
-                                    stroke-linejoin="round" />
-                            </g>
-                        </svg>
-                    </button>
-                </div>
-                <button class="comment-btn">
-                    <svg width="800px" height="800px" viewBox="0 0 24 24" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M17 3.33782C15.5291 2.48697 13.8214 2 12 2C6.47715 2 2 6.47715 2 12C2 13.5997 2.37562 15.1116 3.04346 16.4525C3.22094 16.8088 3.28001 17.2161 3.17712 17.6006L2.58151 19.8267C2.32295 20.793 3.20701 21.677 4.17335 21.4185L6.39939 20.8229C6.78393 20.72 7.19121 20.7791 7.54753 20.9565C8.88837 21.6244 10.4003 22 12 22C17.5228 22 22 17.5228 22 12C22 10.1786 21.513 8.47087 20.6622 7"
-                            stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" />
-                        <path d="M8 12H8.009M11.991 12H12M15.991 12H16" stroke="#1C274C" stroke-width="2"
-                            stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
-                </button>
-                <p class="author">Author - Slawomir </p>
-                <div class="comments">
-
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <!-- new post for linking to quill html to edit a document -->
-    <div class="document" id="2">
-        <div class="post-container" >
-            <div class="user-info">
-                <img src="images/profilep2.jpg" alt="User Profile Picture">
-                <span class="username">Mark Hamill</span>
-            </div>
-            <!--links to editable document -->
-            <a href="quill/quill.html">
-                <img class="post-image" src="images/editDocument.png" alt="Post Image">
-            </a>
-            <div class="post-details">
-                <div class="like-comment">
-                    <button class="like-btn"><svg width="800px" height="800px" viewBox="0 0 24 24" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M8.96173 18.9109L9.42605 18.3219L8.96173 18.9109ZM12 5.50063L11.4596 6.02073C11.601 6.16763 11.7961 6.25063 12 6.25063C12.2039 6.25063 12.399 6.16763 12.5404 6.02073L12 5.50063ZM15.0383 18.9109L15.5026 19.4999L15.0383 18.9109ZM7.00061 16.4209C6.68078 16.1577 6.20813 16.2036 5.94491 16.5234C5.68169 16.8432 5.72758 17.3159 6.04741 17.5791L7.00061 16.4209ZM2.34199 13.4115C2.54074 13.7749 2.99647 13.9084 3.35988 13.7096C3.7233 13.5108 3.85677 13.0551 3.65801 12.6917L2.34199 13.4115ZM2.75 9.1371C2.75 6.98623 3.96537 5.18252 5.62436 4.42419C7.23607 3.68748 9.40166 3.88258 11.4596 6.02073L12.5404 4.98053C10.0985 2.44352 7.26409 2.02539 5.00076 3.05996C2.78471 4.07292 1.25 6.42503 1.25 9.1371H2.75ZM8.49742 19.4999C9.00965 19.9037 9.55954 20.3343 10.1168 20.6599C10.6739 20.9854 11.3096 21.25 12 21.25V19.75C11.6904 19.75 11.3261 19.6293 10.8736 19.3648C10.4213 19.1005 9.95208 18.7366 9.42605 18.3219L8.49742 19.4999ZM15.5026 19.4999C16.9292 18.3752 18.7528 17.0866 20.1833 15.4758C21.6395 13.8361 22.75 11.8026 22.75 9.1371H21.25C21.25 11.3345 20.3508 13.0282 19.0617 14.4798C17.7469 15.9603 16.0896 17.1271 14.574 18.3219L15.5026 19.4999ZM22.75 9.1371C22.75 6.42503 21.2153 4.07292 18.9992 3.05996C16.7359 2.02539 13.9015 2.44352 11.4596 4.98053L12.5404 6.02073C14.5983 3.88258 16.7639 3.68748 18.3756 4.42419C20.0346 5.18252 21.25 6.98623 21.25 9.1371H22.75ZM14.574 18.3219C14.0479 18.7366 13.5787 19.1005 13.1264 19.3648C12.6739 19.6293 12.3096 19.75 12 19.75V21.25C12.6904 21.25 13.3261 20.9854 13.8832 20.6599C14.4405 20.3343 14.9903 19.9037 15.5026 19.4999L14.574 18.3219ZM9.42605 18.3219C8.63014 17.6945 7.82129 17.0963 7.00061 16.4209L6.04741 17.5791C6.87768 18.2624 7.75472 18.9144 8.49742 19.4999L9.42605 18.3219ZM3.65801 12.6917C3.0968 11.6656 2.75 10.5033 2.75 9.1371H1.25C1.25 10.7746 1.66995 12.1827 2.34199 13.4115L3.65801 12.6917Z"
-                                fill="#1C274C" />
-                        </svg></button>
-                    <button onclick="document.location='chatpage.html'" class="comment-btn"><svg width="800px"
-                            height="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M17 3.33782C15.5291 2.48697 13.8214 2 12 2C6.47715 2 2 6.47715 2 12C2 13.5997 2.37562 15.1116 3.04346 16.4525C3.22094 16.8088 3.28001 17.2161 3.17712 17.6006L2.58151 19.8267C2.32295 20.793 3.20701 21.677 4.17335 21.4185L6.39939 20.8229C6.78393 20.72 7.19121 20.7791 7.54753 20.9565C8.88837 21.6244 10.4003 22 12 22C17.5228 22 22 17.5228 22 12C22 10.1786 21.513 8.47087 20.6622 7"
-                                stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" />
-                            <path d="M8 12H8.009M11.991 12H12M15.991 12H16" stroke="#1C274C" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round" />
-                        </svg></button>
-                </div>
-
-                <div class="comments">
-
-                </div>
-            </div>
-        </div>
-    </div>
     
     <!-- Container for thread posts -->
     <div id="threadPostsContainer"></div>
     
-    <div class="4" id="4">
-        <div class="post-container">
-            <div class="user-info">
-                <img src="images/profilep3.jpg" alt="User Profile Picture">
-                <span class="username">Group 3</span>
-            </div>
-            <img class="post-image" src="images/post2.jpg" alt="Post Image">
-            <div class="post-details">
-                <div class="like-comment">
-                    <button><svg id="svgButton" width="800px" height="800px" viewBox="0 0 24 24" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-
-                            <g id="SVGRepo_bgCarrier" stroke-width="0" />
-
-                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" />
-
-                            <g id="SVGRepo_iconCarrier">
-                                <path
-                                    d="M15.7 4C18.87 4 21 6.98 21 9.76C21 15.39 12.16 20 12 20C11.84 20 3 15.39 3 9.76C3 6.98 5.13 4 8.3 4C10.12 4 11.31 4.91 12 5.71C12.69 4.91 13.88 4 15.7 4Z"
-                                    stroke="#000000" stroke-width="1.44" stroke-linecap="round"
-                                    stroke-linejoin="round" />
-                            </g>
-
-                        </svg></button>
-                    <button class="comment-btn"><svg width="800px" height="800px" viewBox="0 0 24 24" fill="none"
-                            id="svgButton" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M17 3.33782C15.5291 2.48697 13.8214 2 12 2C6.47715 2 2 6.47715 2 12C2 13.5997 2.37562 15.1116 3.04346 16.4525C3.22094 16.8088 3.28001 17.2161 3.17712 17.6006L2.58151 19.8267C2.32295 20.793 3.20701 21.677 4.17335 21.4185L6.39939 20.8229C6.78393 20.72 7.19121 20.7791 7.54753 20.9565C8.88837 21.6244 10.4003 22 12 22C17.5228 22 22 17.5228 22 12C22 10.1786 21.513 8.47087 20.6622 7"
-                                stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" />
-                            <path d="M8 12H8.009M11.991 12H12M15.991 12H16" stroke="#1C274C" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round" />
-                        </svg></button>
-
-                </div>
-                <p class="author">Author - Aldo </p>
-                </class>
-                <div class="comments">
-                </div>
-            </div>
-        </div>
-    </div>
-
     <button id="backToTopBtn" onclick="scrollToTop()">Back to Top</button>
 
-
-    <button id="backToTopBtn" onclick="scrollToTop()">Back to Top</button>
-    
 
 
     <script>
         toggleSvgColor();
     </script>
-</body>
 
+</body>
 
 </html>

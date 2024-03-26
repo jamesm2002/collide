@@ -1,7 +1,6 @@
 // searches for all threads in a server
 async function view_threads(serverid) {
 
-    console.log("Got here");
 
   
     const formData = new FormData();
@@ -15,14 +14,13 @@ async function view_threads(serverid) {
   
 
     const result = await response.json();
-    console.log(result)
+
     return result;
   }
 
 // returns an array of all values for a thread
 async function view_thread(threadId) {
 
-    console.log("Got here");
   
     const formData = new FormData();
     formData.append('threadId', threadId);
@@ -39,10 +37,8 @@ async function view_thread(threadId) {
     let threadType;
     try {
         threadType = result[0].threadtype;
-        console.log(threadType);
     } catch {
         threadType = result.threadPart[0].threadtype;
-        console.log(threadType);
     }
     
     let thread;
@@ -92,7 +88,7 @@ async function view_thread(threadId) {
             };
             break;
     }
-    console.log(thread)
+
     return thread;
 }
 
@@ -101,18 +97,14 @@ async function view_thread(threadId) {
 // prints all threads 
 async function print_threads(serverid) {
     const threadsResponse = await view_threads(serverid);
-    console.log(threadsResponse)
     const threadPostsContainer = document.getElementById('threadPostsContainer');
 
     if (threadsResponse && threadsResponse.length > 0) {
-        console.log("Printing posts of all threads in server 1:");
         for (let i = threadsResponse.length - 1; i >= 0; i--) {
             const thread = threadsResponse[i];
-            console.log('thread reponse:', threadsResponse[i])
             print_thread(thread, threadPostsContainer);
         }
     } else {
-        console.log("No threads found in server."); // error message
     }
 };
 
@@ -150,18 +142,77 @@ async function print_thread(thread, container) {
 
     // Append post body container to post div
     postDiv.appendChild(postBodyContainer);
-    
-    const deleteButton = document.createElement('button');
-    deleteButton.textContent = 'Delete';
-    deleteButton.classList.add('delete-button');
-    deleteButton.addEventListener('click', async () => {
-        // Call function to delete the thread
-        await delete_thread(thread_value.threadId);
-        // Remove the post from the container after deletion
-        postDiv.remove();
-    });
-    postDiv.appendChild(deleteButton);
 
+    // adds comments
+    var thread_comments = await get_thread_comment(threadId);
+    const commentsContainer = document.createElement('div');
+    commentsContainer.classList.add('comments-container');
+
+    if (thread_comments.length > 0) {
+        for (let i = 0; i < thread_comments.length; i++) {
+            const comment = thread_comments[i];
+            const user_info_comment = await get_user_info(comment.userid);
+
+            const commentDiv = document.createElement('div');
+            commentDiv.classList.add('comment');
+
+            const usernameSpan = document.createElement('span');
+            usernameSpan.textContent = user_info_comment[0].username + ': ';
+            usernameSpan.classList.add('comment-username');
+            commentDiv.appendChild(usernameSpan);
+
+            const commentTextSpan = document.createElement('span');
+            commentTextSpan.textContent = comment.message;
+            commentTextSpan.classList.add('comment-text');
+            commentDiv.appendChild(commentTextSpan);
+
+            commentsContainer.appendChild(commentDiv);
+        }
+    } else {
+        const noCommentsMessage = document.createElement('p');
+        noCommentsMessage.textContent = "No comments yet for this thread.";
+        commentsContainer.appendChild(noCommentsMessage);
+    }
+
+// Append the comments container to the postDiv
+postDiv.appendChild(commentsContainer);
+    // comments
+    const commentInput = document.createElement('input');
+    commentInput.type = 'text';
+    commentInput.placeholder = 'Add comment...';
+    commentInput.classList.add('comment-input');
+
+    const commentButton = document.createElement('button');
+    commentButton.textContent = 'Comment';
+    commentButton.addEventListener('click', () => {
+        const commentText = commentInput.value.trim();
+        if (commentText !== '') {
+            console.log(`Adding comment "${commentText}" to thread ${threadId}`);
+            add_thread_comment(threadId, userId, commentText);
+            commentInput.value = '';
+            
+        }
+    });
+
+    postDiv.appendChild(commentInput);
+    postDiv.appendChild(commentButton);
+
+    // logic for delete button
+    const loggedInUserId = parseInt(localStorage.getItem("userId")); 
+    const threadUserId = thread_value.userId; // Assuming thread_value.userId is also a string
+
+    if (loggedInUserId === threadUserId) {
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Delete';
+        deleteButton.classList.add('delete-button');
+        deleteButton.addEventListener('click', async () => {
+            await delete_thread(thread_value.threadId);
+            postDiv.remove();
+        });
+        postDiv.appendChild(deleteButton);
+    }
+
+    // creates different threads based on types
     if (thread_value.threadtype === 'Image') {
         const imageContainer = document.createElement('div');
         imageContainer.classList.add('image-container');
