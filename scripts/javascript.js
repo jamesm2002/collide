@@ -1,7 +1,6 @@
 userId = localStorage.getItem("userId");
-serverId = localStorage.getItem("serverId");
 
-async function getViewServerDetailsAndPrintName() {
+async function getViewServerDetailsAndPrintName(serverId) {
     // Ensure you have the serverId when you call this function
     const formData = new FormData();
     formData.append('serverId', serverId);
@@ -30,13 +29,6 @@ async function getViewServerDetailsAndPrintName() {
         // Handle the error (e.g., show an error message in the UI)
         document.getElementById('serverName').textContent = "Error loading server name";
     }
-}
-getViewServerDetailsAndPrintName(serverId)
-function logout(){
-    localStorage.setItem("userId", 0);
-    localStorage.setItem("serverId", 0);
-    window.location.href = 'login.html';
-    console.log(`reset server and userid`);
 }
 
 async function getuserinfo() {
