@@ -21,9 +21,11 @@
             return decodeURIComponent(results[2].replace(/\+/g, ' '));
         }
 
+
         document.addEventListener('DOMContentLoaded', () => {
             print_threads(serverId);
         });
+
     </script>
 </head>
 <div class="hero">
@@ -121,7 +123,7 @@
                     <p>Settings & Privacy</p>
                     <span>></span>
                 </a>
-                <a class="sub-menu-link" onclick="logout()">
+                <a href="login.html" class="sub-menu-link">
                     <img src="images/logout.png">
                     <p>Logout</p>
                     <span>></span>
@@ -197,7 +199,7 @@
         <div class="inner-margins">
             <label>Add members:</label>
             <input id="emailInput" type="textbox" value="" />
-            <button onclick="add_member(serverId)">Add Member</button> 
+            <button onclick="add_member(serverId)">Add Member</button>
             <br>
             <br>
             <br>
@@ -272,18 +274,17 @@
         </div>
         </div>
         <div class="allpost" id="allpost">
-            <div class="posts-container">
+            <div class="post-container">
                 <div id="threadPostsContainer"></div>
             </div>
         </div>
     </body>
 </html>
 
-<script src="scripts/textpost.js"></script>
 <script src="scripts/creategroup.js"></script>
 <script src="scripts/loadthread.js"></script>
 <script src="scripts/loadserver.js"></script>
 <script src="scripts/loadComments.js"></script>
 <script src="scripts/deleteserver.js"></script>
-<script src="scripts/threadcomment.js"></script> 
+<script src="scripts/threadcomment.js"></script>
 <script src="comment.js"></script>

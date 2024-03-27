@@ -9,28 +9,30 @@
     <link rel="stylesheet" href="styles.css">
     <title>Collide chatpage</title>
     <script src="scripts/javascript.js"></script>
-    <script src="scripts/textpost.js"></script>
     <script src="scripts/creategroup.js"></script>
     <script src="scripts/loadthread.js"></script>
     <script src="scripts/loadserver.js"></script>
     <script src="scripts/get_user_servers.js"></script>
-    <script src="scripts/threadcomment.js"></script> 
+    <script src="scripts/threadcomment.js"></script>
     <script>
-         document.addEventListener('DOMContentLoaded', async function() {
-try {
-    // Call list_servers function to fetch server IDs
-    const serverIds = await list_servers(userId);
-    // Use the server IDs as needed
-    console.log("Server IDs:", serverIds);
-    for (const serverId of serverIds) {
-    await print_threads(serverId);
-view_user_servers(1);
-}
-    // You can perform further actions with the server IDs here
-} catch (error) {
-    console.error("Error:", error);
-}
-}); 
+        document.addEventListener('DOMContentLoaded', async function() {
+        try {
+            
+            // Call list_servers function to fetch server IDs
+            const serverIds = await list_servers(userId);
+            
+            // Use the server IDs as needed
+            console.log("Server IDs:", serverIds);
+
+            for (const serverId of serverIds) {
+            await print_threads(serverId);
+        }
+            
+            // You can perform further actions with the server IDs here
+        } catch (error) {
+            console.error("Error:", error);
+        }
+    });
     </script>
 </head>
 <div class="hero">
@@ -164,9 +166,10 @@ view_user_servers(1);
             </div>
         </div>
     </div>
-
+    
     <!-- Container for thread posts -->
     <div id="threadPostsContainer"></div>
+    
     <button id="backToTopBtn" onclick="scrollToTop()">Back to Top</button>
 
 
